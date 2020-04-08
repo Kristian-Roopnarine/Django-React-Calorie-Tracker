@@ -5,4 +5,7 @@ from . import views
 router = DefaultRouter()
 router.register('api/food',views.FoodViewSet)
 
-urlpatterns = [path('',include(router.urls))]
+urlpatterns = [
+    path('',include(router.urls)),
+    path('api/user-nutrition/',views.daily_nutrition)    
+]
