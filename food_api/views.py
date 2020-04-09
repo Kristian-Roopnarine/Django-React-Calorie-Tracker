@@ -19,8 +19,43 @@ class FoodViewSet(viewsets.ModelViewSet):
 @api_view(['GET','POST'])
 @permission_classes([permissions.IsAuthenticated,])
 def daily_nutrition(request):
-    # we can get the user with request.user
-    # food takes in a profile instance
+    """
+    ** GET
+    api/user-nutrition/
+
+    json
+    {"data":[
+        {
+            "name":"test",
+            "total_calories":"500",
+            "fat":"5",
+            "protein:"10",
+            "carbs":"15",
+            "category":"S",
+            "date_eaten":todays_date,
+            "user":{
+                "id":1,
+                "username":"bob",
+            }
+        },
+    ]}
+
+    ** POST
+    api/user-nutrition/
+
+    json
+    {"data":[
+        {
+            "name":"test", (optional)
+            "total_calories":"500",
+            "fat":"5",
+            "protein:"10",
+            "carbs":"15",
+            "category":"S",
+            "date_eaten":todays_date, (optional)
+        },
+    ]}
+    """
     if request.method == 'GET':
         today = dt.now().date()
         tomorrow = today + timedelta(1)
