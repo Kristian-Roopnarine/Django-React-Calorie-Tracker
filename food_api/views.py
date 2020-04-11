@@ -62,9 +62,36 @@ def daily_nutrition(request):
         user_food = Food.objects.filter(user=request.user.profile.id,date_eaten__gt=today,date_eaten__lt=tomorrow)
         user_food = FoodSerializer(user_food,many=True)
         return Response({"message":"success","user_food":user_food.data})
+
+    #creates food instances
     if request.method == 'POST':
         profile = Profile.objects.get(id=request.user.profile.id)
         serializer = FoodSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save(user=profile)
         return Response({"message":"success","data":serializer.data})
+
+
+@api_view(['DELETE','PUT'])
+@permission_classes([permissions.IsAuthenticated,])
+def food_detail(request,pk):
+    # deletes food instances
+    if request.method == 'DELETE':
+        try:
+            food = Food.objects.get(id=pk,user=request.user.profile.id)
+            food.delete()
+        except:
+            return Response({'message':"Uh-oh looks like that item doesn't exist."})
+        return Response({'message':"succesful"})
+
+    #updates food instances
+    if request.method == 'PUT':
+        try:
+            food = Food.objects.get(id=pk,user=request.user.profile.id)
+            profile = Profile.objects.get(id=request.user.profile.id)
+            serializer = FoodSerializer(food,data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save(user=profile)
+        except:
+            return Response({'message':"Uh-oh looks like that item doesn't exist."})
+        return Response({'message':"succesful","item":serializer.data})

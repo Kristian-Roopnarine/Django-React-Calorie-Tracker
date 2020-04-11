@@ -6,7 +6,8 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     REGISTER_FAIL,
-    REGISTER_SUCCESS
+    REGISTER_SUCCESS,
+    LOGOUT
 } from './types'
 
 
@@ -98,6 +99,39 @@ export const register = (username,password) => dispatch => {
             console.log(err)
             dispatch({
                 type:REGISTER_FAIL
+            })
+        })
+}
+
+export const logout = () => (dispatch,getState) => {
+    //get token from the state
+
+    const token = getState().auth.token
+    console.log(token)
+
+    //headers
+    const config = {
+        headers: {
+            'Content-Type':'application/json',
+        }
+    }
+
+    // if token add to headers config
+    if (token) {
+        console.log('found token')
+        config.headers['Authorization'] = `Token ${token}`
+    }
+
+    axios.get('http://localhost:8000/api/auth/logout',config)
+        .then(res => {
+            dispatch({
+                type:LOGOUT,
+                payload:res.data
+            })
+        }).catch(err => {
+            console.log(err)
+            dispatch({
+                type:AUTH_ERROR
             })
         })
 }

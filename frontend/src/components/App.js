@@ -7,6 +7,8 @@ import Alerts from './Alerts.js'
 import Register from './accounts/Register'
 import Login from './accounts/Login'
 import {loadUser} from '../actions/auth'
+import {BrowserRouter,Route} from 'react-router-dom'
+import Home from './Home'
 // Alert options
 
 const alertOptions =  {
@@ -23,12 +25,13 @@ function App() {
 
   return (
     <Provider store={store}>
-      <AlertProvider template={AlertTemplate} {...alertOptions}>
-        <Register />
-        <br/>
-        <br/>
-        <Login />
-      </AlertProvider>
+      <BrowserRouter>
+        <AlertProvider template={AlertTemplate} {...alertOptions}>
+        <Route path="/" exact component= {Home}/>
+          <Route path="/register" component= {Register}/>
+          <Route path="/login" component = {Login}/>
+        </AlertProvider>
+      </BrowserRouter>
     </Provider>
     
   );
