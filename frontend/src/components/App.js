@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
 import { Provider } from 'react-redux';
@@ -9,6 +10,7 @@ import Login from './accounts/Login'
 import {loadUser} from '../actions/auth'
 import {BrowserRouter,Route} from 'react-router-dom'
 import Home from './Home'
+import NavBar from './NavBar'
 // Alert options
 
 const alertOptions =  {
@@ -27,7 +29,8 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <AlertProvider template={AlertTemplate} {...alertOptions}>
-        <Route path="/" exact component= {Home}/>
+          <NavBar />
+          <Route path="/" exact component= {Home}/>
           <Route path="/register" component= {Register}/>
           <Route path="/login" component = {Login}/>
         </AlertProvider>

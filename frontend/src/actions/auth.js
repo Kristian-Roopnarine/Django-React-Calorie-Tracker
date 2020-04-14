@@ -122,7 +122,7 @@ export const logout = () => (dispatch,getState) => {
         config.headers['Authorization'] = `Token ${token}`
     }
 
-    axios.get('http://localhost:8000/api/auth/logout',config)
+    axios.post('http://localhost:8000/api/auth/logout',config)
         .then(res => {
             dispatch({
                 type:LOGOUT,

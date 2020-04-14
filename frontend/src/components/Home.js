@@ -16,7 +16,7 @@ const Home = (props) => {
         } else if (!auth.isAuthenticated){
             return <Redirect to="/login" />
         } else {
-            return (<div><h1>welcome {auth.user.username}</h1><button onClick={()=>dispatch(logout())}>Logout</button></div>)
+            return (<div><h1>welcome {auth.user.username}</h1></div>)
         }
     }
 
