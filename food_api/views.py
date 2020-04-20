@@ -148,7 +148,7 @@ def snack_list(request):
     tomorrow = today + timedelta(1)
     try:
         snack = Food.objects.filter(user=request.user.profile.id,category="S",date_eaten__gt=today,date_eaten__lt=tomorrow)
-        serializer = FoodSerializer(snacks,many=True)
+        serializer = FoodSerializer(snack,many=True)
         return Response({"message":"here's yo food","data":serializer.data})
     except:
         return Response({"message":"No snacks found"})

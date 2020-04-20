@@ -1,8 +1,33 @@
-import React from 'react'
+import React,{useEffect} from 'react'
+import {useSelector,useDispatch} from 'react-redux'
+import {loadSnackList} from '../actions/nutrition'
 import {Table} from 'react-bootstrap'
-import Breakfast from './Breakfast'
+
+
+
 
 const Snacks = (props) => {
+    const snacks = useSelector(state => state.nutrition.snacks)
+    const dispatch = useDispatch()
+
+    // console log the data from the backend
+    useEffect(()=>{
+        dispatch(loadSnackList())
+    },[])
+
+    const renderSnackList = (snacks) => {
+        return snacks.map(snack =>{
+            return (
+                <tr>
+                    <td>{snack.name}</td>
+                    <td>{snack.total_calories}</td>
+                    <td>{snack.carbs}</td>
+                    <td>{snack.fat}</td>
+                    <td>{snack.protein}</td>
+                </tr>
+            )
+        })
+    }
     return (
         <>
             <div>Snacks</div>
@@ -16,6 +41,9 @@ const Snacks = (props) => {
                         <th>Protein</th>
                     </tr>
                 </thead>
+                <tbody>
+                    {renderSnackList(snacks)}
+                </tbody>
             </Table>
         </>
     
