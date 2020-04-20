@@ -12,7 +12,7 @@ const NavBar = () => {
             {auth.isAuthenticated ? <Navbar.Brand href="#home">Welcome {auth.user.username}</Navbar.Brand> :<Navbar.Brand href="#home">Welcome</Navbar.Brand> }
             
             <Nav className="mr-auto">
-                <Nav.Link inline className="text-dark" href="#home">Your Profile</Nav.Link>
+                <Nav.Link className="text-dark" href="#home">Your Profile</Nav.Link>
                 
             </Nav>
             <Button inline variant="outline-primary" onClick={() => dispatch(logout())}> Logout</Button>

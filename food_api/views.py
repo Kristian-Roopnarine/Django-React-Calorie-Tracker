@@ -95,3 +95,75 @@ def food_detail(request,pk):
         except:
             return Response({'message':"Uh-oh looks like that item doesn't exist."})
         return Response({'message':"succesful","item":serializer.data})
+    
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated,])
+def breakfast_list(request):
+    #query breakfast foods for that day
+    #check how this filter chain works
+    today = dt.now().date()
+    tomorrow = today + timedelta(1)
+    try:
+        breakfast = Food.objects.filter(user=request.user.profile.id,category="B",date_eaten__gt=today,date_eaten__lt=tomorrow)
+        serializer = FoodSerializer(breakfast,many=True)
+        return Response({"message":"here's yo food","data":serializer.data})
+    except:
+        return Response({"message":"No breakfast found"})
+    
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated,])
+def lunch_list(request):
+    #query lunch foods for that day
+    #check how this filter chain works
+    today = dt.now().date()
+    tomorrow = today + timedelta(1)
+    try:
+        lunch = Food.objects.filter(user=request.user.profile.id,category="L",date_eaten__gt=today,date_eaten__lt=tomorrow)
+        serializer = FoodSerializer(lunch,many=True)
+        return Response({"message":"here's yo food","data":serializer.data})
+    except:
+        return Response({"message":"No lunch found"})
+ 
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated,])
+def dinner_list(request):
+    # query dinner foods for that day
+    #check how this filter chain works
+    today = dt.now().date()
+    tomorrow = today + timedelta(1)
+    try:
+        dinner = Food.objects.filter(user=request.user.profile.id,category="D",date_eaten__gt=today,date_eaten__lt=tomorrow)
+        serializer = FoodSerializer(dinner,many=True)
+        return Response({"message":"here's yo food","data":serializer.data})
+    except:
+        return Response({"message":"No dinner found"})
+ 
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated,])
+def snack_list(request):
+    # query snack foods for that day
+     #check how this filter chain works
+    today = dt.now().date()
+    tomorrow = today + timedelta(1)
+    try:
+        snack = Food.objects.filter(user=request.user.profile.id,category="S",date_eaten__gt=today,date_eaten__lt=tomorrow)
+        serializer = FoodSerializer(snacks,many=True)
+        return Response({"message":"here's yo food","data":serializer.data})
+    except:
+        return Response({"message":"No snacks found"})
+ 
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated,])
+def cheat_list(request):
+    # query cheat foods for that day
+     #check how this filter chain works
+    today = dt.now().date()
+    tomorrow = today + timedelta(1)
+    try:
+        cheat = Food.objects.filter(user=request.user.profile.id,category="C",date_eaten__gt=today,date_eaten__lt=tomorrow)
+        serializer = FoodSerializer(cheat,many=True)
+        return Response({"message":"here's yo food","data":serializer.data})
+    except:
+        return Response({"message":"No cheat meals found"})
+ 
