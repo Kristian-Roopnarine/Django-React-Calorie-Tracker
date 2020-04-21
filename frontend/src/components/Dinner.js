@@ -1,7 +1,10 @@
 import React,{useEffect} from 'react'
 import {useSelector,useDispatch} from 'react-redux'
-import {loadDinnerList} from '../actions/nutrition'
+import {loadDinnerList,deleteFood} from '../actions/nutrition'
 import {Table} from 'react-bootstrap'
+
+import {faTrash} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 const Dinner = (props) => {
     const dinnerList = useSelector(state => state.nutrition.dinner)
@@ -15,12 +18,13 @@ const Dinner = (props) => {
     const renderDinnerList = (dinnerList) => {
         return dinnerList.map(dinner =>{
             return (
-                <tr>
+                <tr key={dinner.id}>
                     <td>{dinner.name}</td>
                     <td>{dinner.total_calories}</td>
                     <td>{dinner.carbs}</td>
                     <td>{dinner.fat}</td>
                     <td>{dinner.protein}</td>
+                    <td><button onClick={()=>dispatch(deleteFood(dinner))}><FontAwesomeIcon icon={faTrash} /></button></td>
                 </tr>
             )
         })
@@ -36,6 +40,7 @@ const Dinner = (props) => {
                         <th>Carbs</th>
                         <th>Fat</th>
                         <th>Protein</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

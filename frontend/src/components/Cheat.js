@@ -1,7 +1,10 @@
 import React,{useEffect} from 'react'
 import {useSelector,useDispatch} from 'react-redux'
-import {loadCheatList} from '../actions/nutrition'
+import {loadCheatList,deleteFood} from '../actions/nutrition'
 import {Table} from 'react-bootstrap'
+
+import {faTrash} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 const Cheat = (props) => {
     const cheatList = useSelector(state => state.nutrition.cheat)
@@ -15,12 +18,13 @@ const Cheat = (props) => {
     const renderCheatList = (cheatList) => {
         return cheatList.map(cheat =>{
             return (
-                <tr>
+                <tr key={cheat.id}>
                     <td>{cheat.name}</td>
                     <td>{cheat.total_calories}</td>
                     <td>{cheat.carbs}</td>
                     <td>{cheat.fat}</td>
                     <td>{cheat.protein}</td>
+                    <td><button onClick={()=>dispatch(deleteFood(cheat))}><FontAwesomeIcon icon={faTrash} /></button></td>
                 </tr>
             )
         })
@@ -36,6 +40,7 @@ const Cheat = (props) => {
                         <th>Carbs</th>
                         <th>Fat</th>
                         <th>Protein</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

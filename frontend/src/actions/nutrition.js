@@ -100,6 +100,24 @@ export const loadCheatList = () =>(dispatch,getState) => {
 }
 
 
+export const deleteFood = (food) => (dispatch,getState) => {
+    const category = returnCategory(food)
+    const id = food.id
+    const config = configureConfig(dispatch,getState)
+    axios.delete(`http://localhost:8000/api/food/${id}`,config)
+    .then(
+        dispatch({
+            type:DELETE_FOOD,
+            payload:{id,category}
+        })
+    ).catch(err =>{
+        console.log(err)
+    })
+}
+
+
+
+
 // helper function
 const configureConfig = (dispatch,getState) => {
     const token = getState().auth.token
@@ -115,4 +133,21 @@ const configureConfig = (dispatch,getState) => {
     }
 
     return config
+}
+
+const returnCategory = (food) => {
+    switch(food.category){
+        case "B":
+            return "breakfast"
+        case "L":
+            return "lunch"
+        case "D":
+            return "dinner"
+        case "S":
+            return "snack"
+        case "C":
+            return "cheat"
+        default:
+            return food
+    }
 }
