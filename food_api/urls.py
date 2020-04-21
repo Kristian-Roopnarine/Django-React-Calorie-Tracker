@@ -9,6 +9,7 @@ urlpatterns = [
     #path('',include(router.urls)),
     path('api/user-nutrition/',views.daily_nutrition),
     path('api/food/<pk>/',views.food_detail),
+    path('api/user/total-calories',views.total_user_calories),
 
     # react component URLS
     path('api/breakfast',views.breakfast_list),

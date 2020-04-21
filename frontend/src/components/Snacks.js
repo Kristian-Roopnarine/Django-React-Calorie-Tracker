@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react'
 import {useSelector,useDispatch} from 'react-redux'
-import {loadSnackList,deleteFood} from '../actions/nutrition'
+import {loadSnackList,deleteFood,getCalories} from '../actions/nutrition'
 import {Table} from 'react-bootstrap'
 
 import {faTrash} from '@fortawesome/free-solid-svg-icons'
@@ -16,7 +16,10 @@ const Snacks = (props) => {
     useEffect(()=>{
         dispatch(loadSnackList())
     },[])
-
+    const updateFood = (food) => {
+        dispatch(deleteFood(food))
+        
+    }
     const renderSnackList = (snacks) => {
         return snacks.map(snack =>{
             return (
@@ -26,7 +29,7 @@ const Snacks = (props) => {
                     <td>{snack.carbs}</td>
                     <td>{snack.fat}</td>
                     <td>{snack.protein}</td>
-                    <td><button onClick={()=>dispatch(deleteFood(snack))}><FontAwesomeIcon icon={faTrash} /></button></td>
+                    <td><button onClick={()=>updateFood(snack)}><FontAwesomeIcon icon={faTrash} /></button></td>
                 </tr>
             )
         })

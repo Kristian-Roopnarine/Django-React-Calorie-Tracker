@@ -8,6 +8,7 @@ from user_api.models import Profile
 from user_api.serializers import UserSerializer,ProfileSerializer
 from django.utils import timezone
 from datetime import datetime as dt,timedelta
+from django.db.models import Sum
 # Create your views here.
 
 class FoodViewSet(viewsets.ModelViewSet):
@@ -166,4 +167,20 @@ def cheat_list(request):
         return Response({"message":"here's yo food","data":serializer.data})
     except:
         return Response({"message":"No cheat meals found"})
- 
+
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated,])
+def total_user_calories(request):
+    
+    # food for today
+    today = dt.now().date()
+    tomorrow = today + timedelta(1)
+    user_food = Food.objects.filter(user=request.user.profile.id,date_eaten__gt=today,date_eaten__lt=tomorrow)
+    total = user_food.aggregate(Sum('total_calories'),Sum('fat'),Sum('protein'),Sum('carbs'))
+    totalCalories = total["total_calories__sum"]
+    fatCalories = total["fat__sum"]
+    proteinCalories = total["protein__sum"]
+    carbsCalories = total["carbs__sum"]
+
+    return Response({"message":"here's you food data","data":{"date":today,"totalCalories":totalCalories,"fatCalories":fatCalories,"proteinCalories":proteinCalories,"carbsCalories":carbsCalories}})

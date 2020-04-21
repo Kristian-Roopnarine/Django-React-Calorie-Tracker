@@ -7,6 +7,8 @@ import {
     ADD_FOOD,
     EDIT_FOOD,
     DELETE_FOOD,
+    GET_CALORIES,
+    UPDATE_CALORIES
 } from '../actions/types'
 
 const initialState = {
@@ -15,10 +17,13 @@ const initialState = {
     dinner:[],
     snacks:[],
     cheat:[],
-    totalCalories:0,
+    calories:{
+        total:0,
+        fat:0,
+        protein:0,
+        carbs:0
+    },
 }
-
-
 
 export default function(state=initialState,action){
     switch(action.type){
@@ -76,6 +81,26 @@ export default function(state=initialState,action){
                 }
             } else {
                 return state
+            }
+        case GET_CALORIES:
+            return {
+                ...state,
+                calories:{
+                    total:action.payload.totalCalories,
+                    fat:action.payload.fatCalories,
+                    protein:action.payload.proteinCalories,
+                    carbs:action.payload.carbsCalories
+                }
+            }
+        case UPDATE_CALORIES:
+            return {
+                ...state,
+                calories:{
+                    total:state.calories.total + action.payload.total,
+                    fat:state.calories.fat + action.payload.fat,
+                    protein:state.calories.protein + action.payload.protein,
+                    carbs:state.calories.carbs + action.payload.carbs
+                }
             }
         default:
             return state

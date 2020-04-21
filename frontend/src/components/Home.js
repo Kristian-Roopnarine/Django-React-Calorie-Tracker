@@ -2,12 +2,13 @@ import React from 'react'
 import {useSelector,useDispatch} from 'react-redux'
 import { Redirect,Link } from 'react-router-dom'
 import {logout} from '../actions/auth'
-import {Container} from 'react-bootstrap'
+import {Container,Col,Row} from 'react-bootstrap'
 import Snacks from './Snacks'
 import Breakfast from './Breakfast'
 import Cheat from './Cheat'
 import Dinner from './Dinner'
 import Lunch from './Lunch'
+import TotalCalories from './TotalCalories'
 
 
 const Home = (props) => {
@@ -28,12 +29,15 @@ const Home = (props) => {
     return (
     <>
     {renderData()}
-    <Container>
-        <Breakfast />
-        <Lunch />
-        <Dinner />
-        <Snacks />
-        <Cheat />
+    <TotalCalories />
+    <Container fluid>
+        <Col xs={12} s={12} md={7}>
+            <Breakfast />
+            <Lunch />
+            <Dinner />
+            <Snacks />
+            <Cheat />
+        </Col>
     </Container>
     
     </>

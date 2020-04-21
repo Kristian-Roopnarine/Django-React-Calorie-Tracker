@@ -8,8 +8,9 @@ import {
     ADD_FOOD,
     EDIT_FOOD,
     DELETE_FOOD,
-    USER_LOADING,
-    FOOD_ERROR
+    FOOD_ERROR,
+    GET_CALORIES,
+    UPDATE_CALORIES
 } from '../actions/types'
 
 
@@ -99,23 +100,43 @@ export const loadCheatList = () =>(dispatch,getState) => {
     })
 }
 
-
 export const deleteFood = (food) => (dispatch,getState) => {
     const category = returnCategory(food)
     const id = food.id
+    const total = -food.total_calories
+    const fat = -food.fat
+    const protein = -food.protein
+    const carbs = -food.carbs
     const config = configureConfig(dispatch,getState)
+
     axios.delete(`http://localhost:8000/api/food/${id}`,config)
     .then(
         dispatch({
             type:DELETE_FOOD,
             payload:{id,category}
         })
+    ).then(
+        dispatch({
+            type:UPDATE_CALORIES,
+            payload:{total,fat,protein,carbs}
+        })
     ).catch(err =>{
         console.log(err)
     })
 }
 
-
+export const getCalories = () => (dispatch,getState) => {
+    const config = configureConfig(dispatch,getState)
+    axios.get('http://localhost:8000/api/user/total-calories',config)
+    .then(res =>{
+        dispatch({
+            type:GET_CALORIES,
+            payload:res.data.data
+        })
+    }).catch(err =>{
+        console.log(err)
+    })
+}
 
 
 // helper function
