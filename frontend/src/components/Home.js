@@ -32,7 +32,6 @@ const Home = (props) => {
     {renderData()}
     <TotalCalories />
     <Container fluid>
-        <CreateFood />
         <Col xs={12} s={12} md={7}>
             <Breakfast />
             <Lunch />

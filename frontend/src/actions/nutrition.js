@@ -10,7 +10,12 @@ import {
     DELETE_FOOD,
     FOOD_ERROR,
     GET_CALORIES,
-    UPDATE_CALORIES
+    UPDATE_CALORIES,
+    ADD_BREAKFAST,
+    ADD_CHEAT,
+    ADD_DINNER,
+    ADD_LUNCH,
+    ADD_SNACK
 } from '../actions/types'
 
 

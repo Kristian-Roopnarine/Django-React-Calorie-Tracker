@@ -1,7 +1,8 @@
 import React,{useEffect} from 'react'
 import {useSelector,useDispatch} from 'react-redux'
 import {loadBreakfastList,deleteFood,getCalories} from '../actions/nutrition'
-import {Table} from 'react-bootstrap'
+import {Table,Form,Button} from 'react-bootstrap'
+import CreateFoodForm from './forms/CreateFoodForm'
 
 import {faTrash} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -37,21 +38,25 @@ const Breakfast = (props) => {
     return (
     <>
         <div>Breakfast</div>
-        <Table striped bordered hover size="sm">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Calories</th>
-                    <th>Carbs</th>
-                    <th>Fat</th>
-                    <th>Protein</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {renderBreakfastList(breakfastList)}
-            </tbody>
-        </Table>
+           
+            <Table striped bordered hover size="sm">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Calories</th>
+                        <th>Carbs</th>
+                        <th>Fat</th>
+                        <th>Protein</th>
+                        <th></th>
+                    </tr>
+                    
+                </thead>
+                <tbody>
+                    <CreateFoodForm category="B"/>
+                    {renderBreakfastList(breakfastList)}
+                    
+                </tbody>
+            </Table>
     </>
     )
 }

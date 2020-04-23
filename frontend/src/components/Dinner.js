@@ -2,6 +2,7 @@ import React,{useEffect} from 'react'
 import {useSelector,useDispatch} from 'react-redux'
 import {loadDinnerList,deleteFood,getCalories} from '../actions/nutrition'
 import {Table} from 'react-bootstrap'
+import CreateFoodForm from './forms/CreateFoodForm'
 
 import {faTrash} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -48,6 +49,7 @@ const Dinner = (props) => {
                     </tr>
                 </thead>
                 <tbody>
+                    <CreateFoodForm category="D"/>
                     {renderDinnerList(dinnerList)}
                 </tbody>
             </Table>

@@ -2,6 +2,7 @@ import React,{useEffect} from 'react'
 import {useSelector,useDispatch} from 'react-redux'
 import {loadCheatList,deleteFood,getCalories} from '../actions/nutrition'
 import {Table} from 'react-bootstrap'
+import CreateFoodForm from './forms/CreateFoodForm'
 
 import {faTrash} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -47,6 +48,7 @@ const Cheat = (props) => {
                     </tr>
                 </thead>
                 <tbody>
+                    <CreateFoodForm category="C"/>
                     {renderCheatList(cheatList)}
                 </tbody>
             </Table>
