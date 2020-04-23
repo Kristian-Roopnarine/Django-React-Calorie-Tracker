@@ -9,6 +9,7 @@ import Cheat from './Cheat'
 import Dinner from './Dinner'
 import Lunch from './Lunch'
 import TotalCalories from './TotalCalories'
+import CreateFood from './forms/CreateFood'
 
 
 const Home = (props) => {
@@ -31,6 +32,7 @@ const Home = (props) => {
     {renderData()}
     <TotalCalories />
     <Container fluid>
+        <CreateFood />
         <Col xs={12} s={12} md={7}>
             <Breakfast />
             <Lunch />

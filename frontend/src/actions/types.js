@@ -20,3 +20,10 @@ export const DELETE_FOOD = "DELETE_FOOD"
 export const FOOD_ERROR = "FOOD_ERROR"
 export const GET_CALORIES = "GET_CALORIES"
 export const UPDATE_CALORIES = "UPDATE_CALORIES"
+
+export const ADD_BREAKFAST = "ADD_BREAKFAST"
+export const ADD_LUNCH = "ADD_LUNCH"
+export const ADD_DINNER = "ADD_DINNER"
+export const ADD_SNACK = "ADD_SNACK"
+export const ADD_CHEAT = "ADD_CHEAT"
+

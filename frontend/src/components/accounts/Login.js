@@ -25,7 +25,7 @@ const Login = (props) => {
             <Card style={{width:'40rem'}}>
                 <Card.Body>
                     <Form onSubmit={loginUser}>
-                        <Form.Group as={Row}controlId="username">
+                        <Form.Group as={Row} controlId="username">
                             <Form.Label column sm={2}>
                                 Username
                             </Form.Label>
