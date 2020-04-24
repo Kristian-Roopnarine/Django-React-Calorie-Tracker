@@ -1,10 +1,12 @@
 import React,{useState} from 'react'
+import {useDispatch} from 'react-redux'
+import {addBreakfast,addLunch,addDinner,addCheat,addSnacks} from '../../actions/nutrition'
 import {Form,Col,Row,Button} from 'react-bootstrap'
 
 const CreateFoodForm = (props) => {
     const [formData,setFormData] = useState({
         name:"",
-        totalCalories:"",
+        total_calories:"",
         fat:"",
         protein:"",
         carbs:"",
@@ -12,9 +14,32 @@ const CreateFoodForm = (props) => {
         category:props.category
     })
 
+    const dispatch = useDispatch()
+
     const submitFood = (e) => {
         e.preventDefault()
         console.log(formData)
+        if (formData.category === "B"){
+            dispatch(addBreakfast(formData))
+        } else if (formData.category === "L"){
+            dispatch(addLunch(formData))
+        } else if (formData.category === "D"){
+            dispatch(addDinner(formData))
+        } else if (formData.category === "S"){
+            dispatch(addSnacks(formData))
+        } else if (formData.category === "C"){
+            dispatch(addCheat(formData))
+        }
+
+        setFormData({
+            name:"",
+            total_calories:"",
+            fat:"",
+            protein:"",
+            carbs:"",
+            date:null,
+            category:props.category
+        })
     }
 
     const updateFoodInput = (e) => {
@@ -31,7 +56,7 @@ const CreateFoodForm = (props) => {
                     </td>
 
                     <td>
-                        <Form.Control id="totalCalories" size="sm" type="totalCalories" value={formData.totalCalories} placeholder="Total Calories" onChange={(e) => updateFoodInput(e)}/> 
+                        <Form.Control id="total_calories" size="sm" type="totalCalories" value={formData.total_calories} placeholder="Total Calories" onChange={(e) => updateFoodInput(e)}/> 
                     </td>
 
                     <td>    
@@ -47,7 +72,7 @@ const CreateFoodForm = (props) => {
                     </td>
 
                     <td>
-                        <Button variant="primary" type="submit" size="sm" onClick={submitFood}>
+                        <Button variant="success" type="submit" size="sm" onClick={submitFood}>
                             Add Food
                         </Button>    
                     </td>

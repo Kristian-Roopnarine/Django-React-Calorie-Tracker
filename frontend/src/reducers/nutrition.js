@@ -8,7 +8,12 @@ import {
     EDIT_FOOD,
     DELETE_FOOD,
     GET_CALORIES,
-    UPDATE_CALORIES
+    UPDATE_CALORIES,
+    ADD_BREAKFAST,
+    ADD_CHEAT,
+    ADD_DINNER,
+    ADD_LUNCH,
+    ADD_SNACK
 } from '../actions/types'
 
 const initialState = {
@@ -53,6 +58,32 @@ export default function(state=initialState,action){
                 ...state,
                 cheat:action.payload
             }
+        case ADD_BREAKFAST:
+            return {
+                ...state,
+                breakfast:[action.payload,...state.breakfast]
+            }
+        case ADD_LUNCH:
+            return {
+                ...state,
+                lunch:[action.payload,...state.lunch]
+            }
+        case ADD_DINNER:
+            return {
+                ...state,
+                dinner:[action.payload,...state.dinner]
+            }
+        case ADD_SNACK:
+            return {
+                ...state,
+                snacks:[action.payload,...state.snacks]
+            }
+        case ADD_CHEAT:
+            return {
+                ...state,
+                cheat:[action.payload,...state.cheat]
+            }
+
         case DELETE_FOOD:
             if (action.payload.category === "breakfast") {
                 return {
@@ -96,7 +127,7 @@ export default function(state=initialState,action){
             return {
                 ...state,
                 calories:{
-                    total:state.calories.total + action.payload.total,
+                    total:state.calories.total + action.payload.total_calories,
                     fat:state.calories.fat + action.payload.fat,
                     protein:state.calories.protein + action.payload.protein,
                     carbs:state.calories.carbs + action.payload.carbs

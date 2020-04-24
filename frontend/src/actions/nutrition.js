@@ -108,7 +108,7 @@ export const loadCheatList = () =>(dispatch,getState) => {
 export const deleteFood = (food) => (dispatch,getState) => {
     const category = returnCategory(food)
     const id = food.id
-    const total = -food.total_calories
+    const total_calories = -food.total_calories
     const fat = -food.fat
     const protein = -food.protein
     const carbs = -food.carbs
@@ -123,11 +123,119 @@ export const deleteFood = (food) => (dispatch,getState) => {
     ).then(
         dispatch({
             type:UPDATE_CALORIES,
-            payload:{total,fat,protein,carbs}
+            payload:{total_calories,fat,protein,carbs}
         })
     ).catch(err =>{
         console.log(err)
     })
+}
+
+
+export const addBreakfast = (food) => (dispatch,getState) => {
+    // add the food to the backend
+    const config = configureConfig(dispatch,getState)
+    const body = JSON.stringify(food)
+
+    axios.post(`http://localhost:8000/api/user-nutrition/`,body,config)
+    .then( res => {
+        dispatch({
+            type:UPDATE_CALORIES,
+            payload:res.data.data
+        })
+        dispatch({
+            type:ADD_BREAKFAST,
+            payload:res.data.data
+        })
+    }).catch(err =>{
+        console.log(err)
+    })
+   
+}
+export const addLunch = (food) => (dispatch,getState) => {
+    // add the food to the backend
+    const config = configureConfig(dispatch,getState)
+    const body = JSON.stringify(food)
+
+    axios.post(`http://localhost:8000/api/user-nutrition/`,body,config)
+    .then( res => {
+        dispatch({
+            type:UPDATE_CALORIES,
+            payload:res.data.data
+        })
+        dispatch({
+            type:ADD_LUNCH,
+            payload:res.data.data
+        })
+    })
+    .catch(err =>{
+        console.log(err)
+    })
+   
+}
+
+export const addDinner = (food) => (dispatch,getState) => {
+    // add the food to the backend
+    const config = configureConfig(dispatch,getState)
+    const body = JSON.stringify(food)
+
+    axios.post(`http://localhost:8000/api/user-nutrition/`,body,config)
+    .then( res => {
+        dispatch({
+            type:UPDATE_CALORIES,
+            payload:res.data.data
+        })
+        dispatch({
+            type:ADD_DINNER,
+            payload:res.data.data
+        })
+    })
+    .catch(err =>{
+        console.log(err)
+    })
+   
+}
+
+export const addSnacks = (food) => (dispatch,getState) => {
+    // add the food to the backend
+    const config = configureConfig(dispatch,getState)
+    const body = JSON.stringify(food)
+
+    axios.post(`http://localhost:8000/api/user-nutrition/`,body,config)
+    .then( res => {
+        dispatch({
+            type:UPDATE_CALORIES,
+            payload:res.data.data
+        })
+        dispatch({
+            type:ADD_SNACK,
+            payload:res.data.data
+        })
+    })
+    .catch(err =>{
+        console.log(err)
+    })
+
+}
+export const addCheat = (food) => (dispatch,getState) => {
+    // add the food to the backend
+    const config = configureConfig(dispatch,getState)
+    const body = JSON.stringify(food)
+
+    axios.post(`http://localhost:8000/api/user-nutrition/`,body,config)
+    .then( res => {
+        dispatch({
+            type:UPDATE_CALORIES,
+            payload:res.data.data
+        })
+        dispatch({
+            type:ADD_CHEAT,
+            payload:res.data.data
+        })
+    })
+    .catch(err =>{
+        console.log(err)
+    })
+    
 }
 
 export const getCalories = () => (dispatch,getState) => {
@@ -142,6 +250,7 @@ export const getCalories = () => (dispatch,getState) => {
         console.log(err)
     })
 }
+
 
 
 // helper function

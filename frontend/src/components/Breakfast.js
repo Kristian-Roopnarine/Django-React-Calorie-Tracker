@@ -39,7 +39,7 @@ const Breakfast = (props) => {
     <>
         <div>Breakfast</div>
            
-            <Table striped bordered hover size="sm">
+            <Table striped bordered hover responsive size="sm">
                 <thead>
                     <tr>
                         <th>Name</th>
