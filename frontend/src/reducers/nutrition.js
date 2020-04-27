@@ -9,19 +9,15 @@ import {
     DELETE_FOOD,
     GET_CALORIES,
     UPDATE_CALORIES,
-    ADD_BREAKFAST,
-    ADD_CHEAT,
-    ADD_DINNER,
-    ADD_LUNCH,
-    ADD_SNACK
+    
 } from '../actions/types'
 
 const initialState = {
-    breakfast:[],
-    lunch:[],
-    dinner:[],
-    snacks:[],
-    cheat:[],
+    B:[],
+    L:[],
+    D:[],
+    S:[],
+    C:[],
     calories:{
         total:0,
         fat:0,
@@ -35,84 +31,42 @@ export default function(state=initialState,action){
         case GET_BREAKFAST:
             return{
                 ...state,
-                breakfast:action.payload
+                B:action.payload
             }
         case GET_LUNCH:
             return{
                 ...state,
-                lunch:action.payload
+                L:action.payload
             }
         
         case GET_DINNER:
             return{
                 ...state,
-                dinner:action.payload
+                D:action.payload
             }            
         case GET_SNACKS:
             return {
                 ...state,
-                snacks:action.payload
+                S:action.payload
             }
         case GET_CHEAT:
             return {
                 ...state,
-                cheat:action.payload
+                C:action.payload
             }
-        case ADD_BREAKFAST:
-            return {
+
+        case ADD_FOOD:
+            return{
                 ...state,
-                breakfast:[action.payload,...state.breakfast]
-            }
-        case ADD_LUNCH:
-            return {
-                ...state,
-                lunch:[action.payload,...state.lunch]
-            }
-        case ADD_DINNER:
-            return {
-                ...state,
-                dinner:[action.payload,...state.dinner]
-            }
-        case ADD_SNACK:
-            return {
-                ...state,
-                snacks:[action.payload,...state.snacks]
-            }
-        case ADD_CHEAT:
-            return {
-                ...state,
-                cheat:[action.payload,...state.cheat]
+                [action.payload.category]:[action.payload,...state[action.payload.category]]
             }
 
         case DELETE_FOOD:
-            if (action.payload.category === "breakfast") {
-                return {
-                    ...state,
-                    breakfast: state.breakfast.filter(breakfast => breakfast.id !== action.payload.id)
-                }
-            } else if (action.payload.category === "lunch") {
-                return {
-                    ...state,
-                    lunch: state.lunch.filter(lunch => lunch.id !== action.payload.id)
-                }
-            } else if (action.payload.category === "dinner") {
-                return {
-                    ...state,
-                    dinner: state.dinner.filter(dinner => dinner.id !== action.payload.id)
-                }
-            } else if (action.payload.category === "snack") {
-                return {
-                    ...state,
-                    snacks: state.snacks.filter(snacks => snacks.id !== action.payload.id)
-                }
-            } else if (action.payload.category === "cheat") {
-                return {
-                    ...state,
-                    cheat: state.cheat.filter(cheat => cheat.id !== action.payload.id)
-                }
-            } else {
-                return state
-            }
+           return {
+               ...state,
+               [action.payload.category]: state[action.payload.category].filter(food => food.id !== action.payload.id)
+           }
+
         case GET_CALORIES:
             return {
                 ...state,
@@ -123,6 +77,7 @@ export default function(state=initialState,action){
                     carbs:action.payload.carbsCalories
                 }
             }
+
         case UPDATE_CALORIES:
             return {
                 ...state,

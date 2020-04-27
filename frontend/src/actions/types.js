@@ -1,3 +1,6 @@
+///////////////////////
+// AUTH TYPES
+//////////////////////
 export const GET_ERRORS = "GET_ERRORS"
 export const LOGIN = "LOGIN"
 export const CREATE_USER = "CREATE_USER"
@@ -9,6 +12,11 @@ export const LOGIN_FAIL = "LOGIN_FAIL"
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS"
 export const REGISTER_FAIL = "REGISTER_FAIL" 
 export const LOGOUT = "LOGOUT"
+
+
+///////////////////////
+// USER_NUTRITION TYPES
+//////////////////////
 export const GET_BREAKFAST="GET_BREAKFAST"
 export const GET_LUNCH="GET_LUNCH"
 export const GET_DINNER="GET_DINNER"
@@ -21,9 +29,5 @@ export const FOOD_ERROR = "FOOD_ERROR"
 export const GET_CALORIES = "GET_CALORIES"
 export const UPDATE_CALORIES = "UPDATE_CALORIES"
 
-export const ADD_BREAKFAST = "ADD_BREAKFAST"
-export const ADD_LUNCH = "ADD_LUNCH"
-export const ADD_DINNER = "ADD_DINNER"
-export const ADD_SNACK = "ADD_SNACK"
-export const ADD_CHEAT = "ADD_CHEAT"
+
 

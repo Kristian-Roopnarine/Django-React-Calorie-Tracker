@@ -1,16 +1,16 @@
 import React,{useState} from 'react'
 import {useDispatch} from 'react-redux'
-import {addBreakfast,addLunch,addDinner,addCheat,addSnacks} from '../../actions/nutrition'
+import {addFood} from '../../actions/nutrition'
 import {Form,Col,Row,Button} from 'react-bootstrap'
 
 const CreateFoodForm = (props) => {
+    
     const [formData,setFormData] = useState({
         name:"",
         total_calories:"",
         fat:"",
         protein:"",
         carbs:"",
-        date:null,
         category:props.category
     })
 
@@ -19,17 +19,7 @@ const CreateFoodForm = (props) => {
     const submitFood = (e) => {
         e.preventDefault()
         console.log(formData)
-        if (formData.category === "B"){
-            dispatch(addBreakfast(formData))
-        } else if (formData.category === "L"){
-            dispatch(addLunch(formData))
-        } else if (formData.category === "D"){
-            dispatch(addDinner(formData))
-        } else if (formData.category === "S"){
-            dispatch(addSnacks(formData))
-        } else if (formData.category === "C"){
-            dispatch(addCheat(formData))
-        }
+        dispatch(addFood(formData))
 
         setFormData({
             name:"",
@@ -37,7 +27,6 @@ const CreateFoodForm = (props) => {
             fat:"",
             protein:"",
             carbs:"",
-            date:null,
             category:props.category
         })
     }

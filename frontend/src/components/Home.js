@@ -9,7 +9,8 @@ import Cheat from './Cheat'
 import Dinner from './Dinner'
 import Lunch from './Lunch'
 import TotalCalories from './TotalCalories'
-import CreateFood from './forms/CreateFood'
+
+
 
 
 const Home = (props) => {

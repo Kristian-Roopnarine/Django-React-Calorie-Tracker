@@ -21,5 +21,5 @@ class Food(models.Model):
     user = models.ForeignKey(Profile,on_delete=models.CASCADE,null=True)
 
     def __str__(self):
-        return f"{self.name}-{self.total_calories}"
+        return f"{self.name}-{self.total_calories} - {self.date_eaten}"
     
