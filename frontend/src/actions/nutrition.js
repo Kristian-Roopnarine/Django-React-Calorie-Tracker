@@ -11,11 +11,6 @@ import {
     FOOD_ERROR,
     GET_CALORIES,
     UPDATE_CALORIES,
-    ADD_BREAKFAST,
-    ADD_CHEAT,
-    ADD_DINNER,
-    ADD_LUNCH,
-    ADD_SNACK
 } from '../actions/types'
 
 
@@ -123,6 +118,33 @@ export const addFood = (food) => (dispatch,getState) => {
     })
 }
 
+export const editFood = (foodItem,original) => (dispatch,getState) => {
+    const config = configureConfig(dispatch,getState)
+    const body = JSON.stringify(foodItem)
+
+    // change between edited item and original
+    const total_calories =  foodItem.total_calories - original.total_calories
+    const fat = foodItem.fat - original.fat
+    const protein =  foodItem.protein - original.protein
+    const carbs = foodItem.carbs - original.carbs
+
+    axios.put(`http://localhost:8000/api/food/${original.id}/`,body,config)
+    .then(res =>{
+        dispatch({
+            type:EDIT_FOOD,
+            payload:res.data.item
+        })
+    }).then (
+        dispatch({
+            type:UPDATE_CALORIES,
+            payload:{total_calories,fat,protein,carbs}
+        })
+    ).catch(err=>{
+        console.log(err)
+    })
+
+}
+
 export const deleteFood = (food) => (dispatch,getState) => {
     const category = food.category
     const id = food.id
@@ -180,19 +202,4 @@ const configureConfig = (dispatch,getState) => {
     return config
 }
 
-const returnCategory = (food) => {
-    switch(food.category){
-        case "B":
-            return "breakfast"
-        case "L":
-            return "lunch"
-        case "D":
-            return "dinner"
-        case "S":
-            return "snack"
-        case "C":
-            return "cheat"
-        default:
-            return food
-    }
-}
+

@@ -58,7 +58,7 @@ export default function(state=initialState,action){
         case ADD_FOOD:
             return{
                 ...state,
-                [action.payload.category]:[action.payload,...state[action.payload.category]]
+                [action.payload.category]:[...state[action.payload.category],action.payload]
             }
 
         case DELETE_FOOD:
@@ -66,6 +66,21 @@ export default function(state=initialState,action){
                ...state,
                [action.payload.category]: state[action.payload.category].filter(food => food.id !== action.payload.id)
            }
+
+        case EDIT_FOOD:
+            return {
+                ...state,
+                [action.payload.category]: state[action.payload.category].map(food =>{
+                    if (food.id !== action.payload.id){
+                        return food
+                    } else {
+                        return {
+                            ...food,
+                            ...action.payload
+                        }
+                    }
+                })
+            }
 
         case GET_CALORIES:
             return {
@@ -88,6 +103,8 @@ export default function(state=initialState,action){
                     carbs:state.calories.carbs + action.payload.carbs
                 }
             }
+        
+
         default:
             return state
     }
