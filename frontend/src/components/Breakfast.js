@@ -5,6 +5,7 @@ import FoodTable from './FoodTable'
 
 
 const Breakfast = (props) => {
+    
     var breakfastList = useSelector(state => state.nutrition.B)
     const dispatch = useDispatch()
 
@@ -23,7 +24,7 @@ const Breakfast = (props) => {
             <FoodTable 
                 foodList = {breakfastList}
                 category="B"
-                onClick = {deleteBreakfast}
+                onClickTrash = {deleteBreakfast}
             />
         </>
     )
