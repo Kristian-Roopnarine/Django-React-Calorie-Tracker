@@ -2,19 +2,25 @@ from django.shortcuts import render
 from rest_framework import viewsets,permissions
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.response import Response
-from .serializers import FoodSerializer
-from .models import Food
+from .serializers import FoodSerializer,APISSerializer
+from .models import Food,APIS
 from user_api.models import Profile
 from user_api.serializers import UserSerializer,ProfileSerializer
 from django.utils import timezone
 from datetime import datetime as dt,timedelta
 from django.db.models import Sum
+
 # Create your views here.
 
 class FoodViewSet(viewsets.ModelViewSet):
     queryset = Food.objects.all()
     serializer_class = FoodSerializer
 
+@api_view(['GET'])
+def usda_key(request):
+    api_key = APIS.objects.get(id=1)
+    serializer = APISSerializer(api_key)
+    return Response({"message":"Here is your key.","data":serializer.data})
 
 # need a view to return the food eaten on a certain day for a user
 @api_view(['GET','POST'])

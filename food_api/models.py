@@ -23,3 +23,8 @@ class Food(models.Model):
     def __str__(self):
         return f"{self.name}-{self.total_calories} - {self.date_eaten}"
     
+class APIS(models.Model):
+    api_key = models.CharField(max_length=40, null=True)
+
+    
+    

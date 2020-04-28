@@ -9,6 +9,7 @@ import Cheat from './Cheat'
 import Dinner from './Dinner'
 import Lunch from './Lunch'
 import TotalCalories from './TotalCalories'
+import SearchFood from './SearchFood'
 
 
 
@@ -32,14 +33,19 @@ const Home = (props) => {
     <>
     {renderData()}
     <TotalCalories />
-    <Container fluid>
-        <Col xs={12} s={12} md={7}>
-            <Breakfast />
-            <Lunch />
-            <Dinner />
-            <Snacks />
-            <Cheat />
-        </Col>
+    <Container fluid className="mt-3">
+        <Row>
+            <Col xs={12} s={12} md={{span:6,offset:1}}>
+                <Breakfast />
+                <Lunch />
+                <Dinner />
+                <Snacks />
+                <Cheat />
+            </Col>
+            <Col xs={12} s={12} md={{span:3,offset:1}}>
+                <SearchFood usdaKey={auth.usda_key}/>
+            </Col>
+        </Row>
     </Container>
     
     </>

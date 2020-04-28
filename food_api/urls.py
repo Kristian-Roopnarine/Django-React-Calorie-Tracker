@@ -17,4 +17,7 @@ urlpatterns = [
     path('api/dinner',views.dinner_list), 
     path('api/snacks',views.snack_list),   
     path('api/cheat',views.cheat_list), 
+
+    #usda api key
+    path('api/usda-key',views.usda_key)
 ]

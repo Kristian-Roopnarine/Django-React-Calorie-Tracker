@@ -13,7 +13,6 @@ import {
     UPDATE_CALORIES,
 } from '../actions/types'
 
-
 export const loadBreakfastList = () =>(dispatch,getState) => {
     const config = configureConfig(dispatch,getState)
 

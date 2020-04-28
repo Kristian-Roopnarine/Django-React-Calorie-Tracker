@@ -7,7 +7,8 @@ import {
     LOGIN_FAIL,
     REGISTER_FAIL,
     REGISTER_SUCCESS,
-    LOGOUT
+    LOGOUT,
+    GET_USDA_KEY
 } from './types'
 
 
@@ -49,6 +50,18 @@ export const loadUser = () => (dispatch,getState) => {
             })
         })
 }
+
+export const getKey = () => (dispatch,getState) =>{
+    const config = configureConfig(dispatch,getState)
+    axios.get('http://localhost:8000/api/usda-key',config)
+    .then(res => {
+        dispatch({
+            type:GET_USDA_KEY,
+            payload:res.data.data
+        })
+    })
+}
+
 
 // login user
 export const login = (username,password) => dispatch => {
@@ -134,4 +147,21 @@ export const logout = () => (dispatch,getState) => {
                 type:AUTH_ERROR
             })
         })
+}
+
+// helper function
+const configureConfig = (dispatch,getState) => {
+    const token = getState().auth.token
+
+    const config = {
+        headers:{
+            'Content-Type':'application/json'
+        }
+    }
+    
+    if (token) {
+        config.headers['Authorization'] = `Token ${token}`
+    }
+
+    return config
 }

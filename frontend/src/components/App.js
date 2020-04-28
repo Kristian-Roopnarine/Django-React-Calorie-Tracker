@@ -7,7 +7,7 @@ import store from '../store'
 import Alerts from './Alerts.js'
 import Register from './accounts/Register'
 import Login from './accounts/Login'
-import {loadUser} from '../actions/auth'
+import {loadUser,getKey} from '../actions/auth'
 import {BrowserRouter,Route} from 'react-router-dom'
 import Home from './Home'
 import NavBar from './NavBar'
@@ -23,6 +23,7 @@ function App() {
 
   useEffect(() =>{
     store.dispatch(loadUser())
+    store.dispatch(getKey())
   })
 
   return (
