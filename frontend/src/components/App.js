@@ -11,13 +11,12 @@ import {loadUser,getKey} from '../actions/auth'
 import {BrowserRouter,Route} from 'react-router-dom'
 import Home from './Home'
 import NavBar from './NavBar'
-// Alert options
 
+// Alert options
 const alertOptions =  {
   timeout:3000,
   position:'top center'
 }
-
 
 function App() {
 

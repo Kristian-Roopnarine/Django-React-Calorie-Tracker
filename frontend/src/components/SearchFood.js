@@ -5,8 +5,23 @@ import {addFood} from '../actions/nutrition'
 import {Form,Col,Row,Button,Card} from 'react-bootstrap'
 
 
-const SearchFood = (props) => {
+async function getData(url,subKey){
+    const response = await fetch(url,{
+        method:"GET",
+        mode:'cors',
+        headers:{
+            'Access-Control-Allow-Origin': '*',
+            'Accept':'application/json',
+            "Ocp-Apim-Subscription-Key": subKey
+        }
+    })
+    return response.json()
+}
 
+const SearchFood = (props) => {
+    const url = `https://api.nal.usda.gov/fdc/v1/foods/list?api_key=${props.usdaKey}`
+    const url2 = "/foods?query="
+    const subKey = process.env.REACT_APP_ESHA_API_KEY
     const [food,setFood] = useState({
         name:"",
         total_calories:0,
@@ -16,10 +31,27 @@ const SearchFood = (props) => {
         category:""
     })
 
+    const getFood = (food) => {
+        
+        /*
+        const headers= {
+                'Access-Control-Allow-Origin': 'https://nutrition-api.esha.com',
+                'Content-Type':'application/x-www-form-urlencoded',
+                "Ocp-Apim-Subscription-Key": subKey
+            }
+        */
+        const body = {
+            'query':`${food.name}`
+        }
+
+        const queryUrl = url2+food.name
+        getData(queryUrl,subKey).then(data=>console.log(data))
+    }
+
     const dispatch = useDispatch()
 
     const submitFood = () => {
-        console.log(food)
+        getFood(food)
     }
 
     const clearInput = () => {
