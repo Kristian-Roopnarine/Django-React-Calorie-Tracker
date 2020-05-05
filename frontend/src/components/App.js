@@ -11,6 +11,8 @@ import {loadUser,getKey} from '../actions/auth'
 import {BrowserRouter,Route} from 'react-router-dom'
 import Home from './Home'
 import NavBar from './NavBar'
+import Statistics from './statistics/Statistics'
+import Profile from './Profile'
 
 // Alert options
 const alertOptions =  {
@@ -22,7 +24,6 @@ function App() {
 
   useEffect(() =>{
     store.dispatch(loadUser())
-    store.dispatch(getKey())
   })
 
   return (
@@ -33,6 +34,9 @@ function App() {
           <Route path="/" exact component= {Home}/>
           <Route path="/register" component= {Register}/>
           <Route path="/login" component = {Login}/>
+          <Route path="/stats" component = {Statistics}/>
+          <Route path="/profile" component = {Profile} />
+
         </AlertProvider>
       </BrowserRouter>
     </Provider>

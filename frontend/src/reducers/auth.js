@@ -7,7 +7,6 @@ import {
     REGISTER_FAIL,
     REGISTER_SUCCESS,
     LOGOUT,
-    GET_USDA_KEY,
 } from '../actions/types'
 
 
@@ -16,7 +15,6 @@ const initialState = {
     isAuthenticated:null,
     isLoading:false,
     user:null,
-    usda_key:null
 }
 
 
@@ -54,11 +52,6 @@ export default function(state=initialState,action){
                 user:null,
                 isAuthenticated:false,
                 isLoading:false
-            }
-        case GET_USDA_KEY:
-            return {
-                ...state,
-                usda_key:action.payload.api_key
             }
         default:
             return state

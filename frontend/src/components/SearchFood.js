@@ -19,7 +19,6 @@ async function getData(url,subKey){
 }
 
 const SearchFood = (props) => {
-    const url = `https://api.nal.usda.gov/fdc/v1/foods/list?api_key=${props.usdaKey}`
     const url2 = "/foods?query="
     const subKey = process.env.REACT_APP_ESHA_API_KEY
     const [food,setFood] = useState({
@@ -33,13 +32,6 @@ const SearchFood = (props) => {
 
     const getFood = (food) => {
         
-        /*
-        const headers= {
-                'Access-Control-Allow-Origin': 'https://nutrition-api.esha.com',
-                'Content-Type':'application/x-www-form-urlencoded',
-                "Ocp-Apim-Subscription-Key": subKey
-            }
-        */
         const body = {
             'query':`${food.name}`
         }

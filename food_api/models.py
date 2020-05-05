@@ -17,7 +17,7 @@ class Food(models.Model):
     protein = models.IntegerField()
     carbs = models.IntegerField()
     category = models.CharField(choices=CATEGORIES,max_length=1)
-    date_eaten = models.DateTimeField(auto_now_add=True)
+    date_eaten = models.DateField(auto_now_add=True)
     user = models.ForeignKey(Profile,on_delete=models.CASCADE,null=True)
 
     def __str__(self):

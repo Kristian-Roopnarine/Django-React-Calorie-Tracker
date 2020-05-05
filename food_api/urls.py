@@ -18,6 +18,5 @@ urlpatterns = [
     path('api/snacks',views.snack_list),   
     path('api/cheat',views.cheat_list), 
 
-    #usda api key
-    path('api/usda-key',views.usda_key)
+    path('api/30-day-calories',views.get_30_days_calories)
 ]

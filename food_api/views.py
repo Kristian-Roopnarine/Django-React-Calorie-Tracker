@@ -16,12 +16,6 @@ class FoodViewSet(viewsets.ModelViewSet):
     queryset = Food.objects.all()
     serializer_class = FoodSerializer
 
-@api_view(['GET'])
-def usda_key(request):
-    api_key = APIS.objects.get(id=1)
-    serializer = APISSerializer(api_key)
-    return Response({"message":"Here is your key.","data":serializer.data})
-
 # need a view to return the food eaten on a certain day for a user
 @api_view(['GET','POST'])
 @permission_classes([permissions.IsAuthenticated,])
@@ -64,7 +58,7 @@ def daily_nutrition(request):
     ]}
     """
     if request.method == 'GET':
-        today = dt.now().date()
+        today = dt.today()
         tomorrow = today + timedelta(1)
         user_food = Food.objects.filter(user=request.user.profile.id,date_eaten__gt=today,date_eaten__lt=tomorrow)
         user_food = FoodSerializer(user_food,many=True)
@@ -108,10 +102,11 @@ def food_detail(request,pk):
 def breakfast_list(request):
     #query breakfast foods for that day
     #check how this filter chain works
-    today = dt.now().date()
+    today = dt.today()
     tomorrow = today + timedelta(1)
     try:
-        breakfast = Food.objects.filter(user=request.user.profile.id,category="B",date_eaten__gt=today,date_eaten__lt=tomorrow)
+        breakfast = Food.objects.filter(user=request.user.profile.id,category="B",date_eaten__range=[today,tomorrow])
+        print(breakfast)
         serializer = FoodSerializer(breakfast,many=True)
         return Response({"message":"here's yo food","data":serializer.data})
     except:
@@ -123,10 +118,10 @@ def breakfast_list(request):
 def lunch_list(request):
     #query lunch foods for that day
     #check how this filter chain works
-    today = dt.now().date()
+    today = dt.today()
     tomorrow = today + timedelta(1)
     try:
-        lunch = Food.objects.filter(user=request.user.profile.id,category="L",date_eaten__gt=today,date_eaten__lt=tomorrow)
+        lunch = Food.objects.filter(user=request.user.profile.id,category="L",date_eaten__range=[today,tomorrow])
         serializer = FoodSerializer(lunch,many=True)
         return Response({"message":"here's yo food","data":serializer.data})
     except:
@@ -137,10 +132,10 @@ def lunch_list(request):
 def dinner_list(request):
     # query dinner foods for that day
     #check how this filter chain works
-    today = dt.now().date()
+    today = dt.today()
     tomorrow = today + timedelta(1)
     try:
-        dinner = Food.objects.filter(user=request.user.profile.id,category="D",date_eaten__gt=today,date_eaten__lt=tomorrow)
+        dinner = Food.objects.filter(user=request.user.profile.id,category="D",date_eaten__range=[today,tomorrow])
         serializer = FoodSerializer(dinner,many=True)
         return Response({"message":"here's yo food","data":serializer.data})
     except:
@@ -151,10 +146,10 @@ def dinner_list(request):
 def snack_list(request):
     # query snack foods for that day
      #check how this filter chain works
-    today = dt.now().date()
+    today = dt.today()
     tomorrow = today + timedelta(1)
     try:
-        snack = Food.objects.filter(user=request.user.profile.id,category="S",date_eaten__gt=today,date_eaten__lt=tomorrow)
+        snack = Food.objects.filter(user=request.user.profile.id,category="S",date_eaten__range=[today,tomorrow])
         serializer = FoodSerializer(snack,many=True)
         return Response({"message":"here's yo food","data":serializer.data})
     except:
@@ -165,10 +160,10 @@ def snack_list(request):
 def cheat_list(request):
     # query cheat foods for that day
      #check how this filter chain works
-    today = dt.now().date()
+    today = dt.today()
     tomorrow = today + timedelta(1)
     try:
-        cheat = Food.objects.filter(user=request.user.profile.id,category="C",date_eaten__gt=today,date_eaten__lt=tomorrow)
+        cheat = Food.objects.filter(user=request.user.profile.id,category="C",date_eaten__range=[today,tomorrow])
         serializer = FoodSerializer(cheat,many=True)
         return Response({"message":"here's yo food","data":serializer.data})
     except:
@@ -180,9 +175,9 @@ def cheat_list(request):
 def total_user_calories(request):
     
     # food for today
-    today = dt.now().date()
+    today = dt.today()
     tomorrow = today + timedelta(1)
-    user_food = Food.objects.filter(user=request.user.profile.id,date_eaten__gt=today,date_eaten__lt=tomorrow)
+    user_food = Food.objects.filter(user=request.user.profile.id,date_eaten__range=[today,tomorrow])
     total = user_food.aggregate(Sum('total_calories'),Sum('fat'),Sum('protein'),Sum('carbs'))
     totalCalories = total["total_calories__sum"]
     fatCalories = total["fat__sum"]
@@ -190,3 +185,16 @@ def total_user_calories(request):
     carbsCalories = total["carbs__sum"]
 
     return Response({"message":"here's you food data","data":{"date":today,"totalCalories":totalCalories,"fatCalories":fatCalories,"proteinCalories":proteinCalories,"carbsCalories":carbsCalories}})
+
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def get_30_days_calories(request):
+    today = dt.today()
+    thirty_days_ago = today - timedelta(30)
+    user_food = Food.objects.filter(user=request.user.profile.id,date_eaten__gte=thirty_days_ago)
+    filtered_food = user_food.values('date_eaten').annotate(totalCalories=Sum('total_calories'))
+    return Response({
+        "message":"Here's yo food",
+        "data":filtered_food
+    })
