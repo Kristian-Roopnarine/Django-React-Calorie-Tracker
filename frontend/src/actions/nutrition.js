@@ -11,6 +11,8 @@ import {
     FOOD_ERROR,
     GET_CALORIES,
     UPDATE_CALORIES,
+    GET_WEIGHT,
+    UPDATE_WEIGHT
 } from '../actions/types'
 
 export const loadBreakfastList = () =>(dispatch,getState) => {
@@ -182,6 +184,33 @@ export const getCalories = () => (dispatch,getState) => {
     })
 }
 
+export const getUserWeight = () => (dispatch,getState) => {
+    const config = configureConfig(dispatch,getState)
+    axios.get('http://localhost:8000/api/user/weight',config)
+    .then(res =>{
+        dispatch({
+            type:GET_WEIGHT,
+            payload:res.data.weight
+        })
+    }).catch(err =>{
+        console.log(err)
+    })
+}
+
+export const updateUserWeight = (weight) => (dispatch,getState) => {
+    const config = configureConfig(dispatch,getState)
+    const body = JSON.stringify(weight)
+    axios.post('http://localhost:8000/api/user/weight',body,config)
+    .then(res =>{
+        console.log(res.data)
+        dispatch({
+            type:UPDATE_WEIGHT,
+            payload:res.data.data
+        })
+    }).catch(err =>{
+        console.log(err)
+    })
+}
 
 
 // helper function

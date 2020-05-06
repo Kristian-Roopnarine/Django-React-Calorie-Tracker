@@ -29,6 +29,8 @@ export const DELETE_FOOD = "DELETE_FOOD"
 export const FOOD_ERROR = "FOOD_ERROR"
 export const GET_CALORIES = "GET_CALORIES"
 export const UPDATE_CALORIES = "UPDATE_CALORIES"
+export const GET_WEIGHT = 'GET_WEIGHT'
+export const UPDATE_WEIGHT = "UPDATE_WEIGHT"
 
 
 

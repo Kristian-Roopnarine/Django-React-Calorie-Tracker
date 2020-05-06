@@ -22,11 +22,13 @@ const Home = (props) => {
 
         if (auth.isLoading){
             return <h2>Loading..</h2>
-        } else if (!auth.isAuthenticated){
-            return <Redirect to="/login" />
-        } else {
+        } else if (auth.isAuthenticated){
             return (<div><h1>welcome {auth.user.username}</h1></div>)
+        } else {
+            return <Redirect to="/login" />
         }
+
+        
     }
 
     return (
@@ -43,7 +45,7 @@ const Home = (props) => {
                 <Cheat />
             </Col>
             <Col xs={12} s={12} md={{span:3,offset:1}}>
-                <SearchFood usdaKey={auth.usda_key}/>
+                <SearchFood />
             </Col>
         </Row>
     </Container>

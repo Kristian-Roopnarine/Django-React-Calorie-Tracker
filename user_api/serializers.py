@@ -1,7 +1,12 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile,Weight
 from django.contrib.auth import authenticate
+
+class WeightSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Weight
+        fields = ['number','date_recorded']
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,7 +17,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     class Meta:
         model = Profile
-        fields = ['id','daily_calories','weight','goal_weight','user']
+        fields = ['id','daily_calories','goal_weight','user']
 
 
 # Register serializer

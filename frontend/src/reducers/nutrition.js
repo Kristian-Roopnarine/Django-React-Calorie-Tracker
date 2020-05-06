@@ -9,6 +9,8 @@ import {
     DELETE_FOOD,
     GET_CALORIES,
     UPDATE_CALORIES,
+    GET_WEIGHT,
+    UPDATE_WEIGHT
     
 } from '../actions/types'
 
@@ -24,6 +26,7 @@ const initialState = {
         protein:0,
         carbs:0
     },
+    user_weight:0
 }
 
 export default function(state=initialState,action){
@@ -103,7 +106,12 @@ export default function(state=initialState,action){
                     carbs:state.calories.carbs + action.payload.carbs
                 }
             }
-        
+        case GET_WEIGHT:
+        case UPDATE_WEIGHT:
+            return {
+                ...state,
+                user_weight:action.payload
+            }
 
         default:
             return state

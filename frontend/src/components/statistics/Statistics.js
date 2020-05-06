@@ -26,10 +26,32 @@ function convertToDataSet(arr){
     return dataSet
 }
 
+function convertToWeightDataSet(arr){
+    var xLabel;
+    var yLabel;
+    xLabel = arr.map(p => p.date_recorded)
+    yLabel = arr.map(p => p.number)
+    const dataSet = {
+        labels: xLabel,
+        datasets: [
+            {
+            label: 'Weight (lbs)',
+            fill: false,
+            lineTension: 0.5,
+            backgroundColor: 'rgba(75,192,192,1)',
+            borderColor: 'rgba(0,0,0,1)',
+            borderWidth: 2,
+            data: yLabel
+            }
+        ]
+    }
+    return dataSet
+}
 
 const Statistics = () => {
     const auth = useSelector(state => state.auth)
-    const [lineState,updateLineState] = useState()
+    const [calorieLineState,updateCalorieLineState] = useState()
+    const [weightLineState,updateWeightLineState] = useState()
     const [isLoading,setIsLoading] = useState(true)
     
     // need to query for the weight of the user throughout the week/month
@@ -42,15 +64,18 @@ const Statistics = () => {
                 'Authorization':`Token ${auth.token}`
             }
         }
-        
         axios.get('http://localhost:8000/api/30-day-calories',config)
         .then(res=>{
-           updateLineState(convertToDataSet(res.data.data))
-           setIsLoading(false)
+            updateCalorieLineState(convertToDataSet(res.data.data))
+            setIsLoading(false)
         })
 
-
-
+        axios.get('http://localhost:8000/api/user/30-day-weight',config)
+        .then(res=>{
+            console.log(res.data)
+            updateWeightLineState(convertToWeightDataSet(res.data.data))
+            
+        })
 
     },[])
 
@@ -59,11 +84,29 @@ const Statistics = () => {
             {isLoading ? <div>Loading..</div>:
             <Container>
                 <Line 
-                    data= {lineState}
+                    data= {calorieLineState}
                     options = {{
                         title:{
                             display:true,
                             text:'Recorded calorie consumption per day.',
+                            fontSize:20,
+                        },
+                        scales:{
+                            yAxes:[{
+                                ticks:{
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }}
+                />
+
+                <Line 
+                    data= {weightLineState}
+                    options = {{
+                        title:{
+                            display:true,
+                            text:'Recorded weight per day.',
                             fontSize:20,
                         },
                         scales:{
