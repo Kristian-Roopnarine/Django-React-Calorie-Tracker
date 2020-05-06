@@ -1,19 +1,41 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import {useSelector} from 'react-redux'
 import axios from 'axios'
+import {Container} from 'react-bootstrap'
+import {Line} from 'react-chartjs-2';
+
+function convertToDataSet(arr){
+    var xLabel;
+    var yLabel;
+    xLabel = arr.map(p => p.date_eaten)
+    yLabel = arr.map(p => p.totalCalories)
+    const dataSet = {
+        labels: xLabel,
+        datasets: [
+            {
+            label: 'Total calories',
+            fill: false,
+            lineTension: 0.5,
+            backgroundColor: 'rgba(75,192,192,1)',
+            borderColor: 'rgba(0,0,0,1)',
+            borderWidth: 2,
+            data: yLabel
+            }
+        ]
+    }
+    return dataSet
+}
 
 
 const Statistics = () => {
     const auth = useSelector(state => state.auth)
-    // need to query backend for user total calories for the week
-    // maybe break down these total calories for everyday
+    const [lineState,updateLineState] = useState()
+    const [isLoading,setIsLoading] = useState(true)
     
     // need to query for the weight of the user throughout the week/month
-
     // maybe query for how often a food was eaten this week?
+
     useEffect(()=>{
-        
-            
         const config = {
             headers:{
                 'Content-Type':'application/json',
@@ -23,14 +45,39 @@ const Statistics = () => {
         
         axios.get('http://localhost:8000/api/30-day-calories',config)
         .then(res=>{
-            console.log(res.data)
+           updateLineState(convertToDataSet(res.data.data))
+           setIsLoading(false)
         })
+
+
+
+
     },[])
 
     return (
-        <div>
-            User Stats
-        </div>
+        <>
+            {isLoading ? <div>Loading..</div>:
+            <Container>
+                <Line 
+                    data= {lineState}
+                    options = {{
+                        title:{
+                            display:true,
+                            text:'Recorded calorie consumption per day.',
+                            fontSize:20,
+                        },
+                        scales:{
+                            yAxes:[{
+                                ticks:{
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }}
+                />
+            </Container>
+            }
+        </>
     )
 }
 
