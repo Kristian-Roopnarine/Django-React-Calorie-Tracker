@@ -1,8 +1,9 @@
 import React,{useEffect,useState} from 'react'
 import {useSelector} from 'react-redux'
 import axios from 'axios'
-import {Container} from 'react-bootstrap'
+import {Container,Row,Col} from 'react-bootstrap'
 import {Line} from 'react-chartjs-2';
+
 
 function convertToDataSet(arr){
     var xLabel;
@@ -67,14 +68,13 @@ const Statistics = () => {
         axios.get('http://localhost:8000/api/30-day-calories',config)
         .then(res=>{
             updateCalorieLineState(convertToDataSet(res.data.data))
-            setIsLoading(false)
+            
         })
 
         axios.get('http://localhost:8000/api/user/30-day-weight',config)
         .then(res=>{
-            console.log(res.data)
             updateWeightLineState(convertToWeightDataSet(res.data.data))
-            
+            setIsLoading(false)
         })
 
     },[])
@@ -82,42 +82,40 @@ const Statistics = () => {
     return (
         <>
             {isLoading ? <div>Loading..</div>:
-            <Container>
-                <Line 
-                    data= {calorieLineState}
-                    options = {{
-                        title:{
-                            display:true,
-                            text:'Recorded calorie consumption per day.',
-                            fontSize:20,
-                        },
-                        scales:{
-                            yAxes:[{
-                                ticks:{
-                                    beginAtZero:true
+            <Container className="mt-3">
+                <Row>
+                    <Col>
+                        <Line 
+                            data= {calorieLineState}
+                            options = {{
+                                title:{
+                                    display:true,
+                                    text:'Recorded calorie consumption per day.',
+                                    fontSize:20,
+                                },
+                                scales:{
+                                    yAxes:[{
+                                        ticks:{
+                                            beginAtZero:true
+                                        }
+                                    }]
                                 }
-                            }]
-                        }
-                    }}
-                />
-
-                <Line 
-                    data= {weightLineState}
-                    options = {{
-                        title:{
-                            display:true,
-                            text:'Recorded weight per day.',
-                            fontSize:20,
-                        },
-                        scales:{
-                            yAxes:[{
-                                ticks:{
-                                    beginAtZero:true
-                                }
-                            }]
-                        }
-                    }}
-                />
+                            }}
+                        />
+                    </Col>
+                    <Col>
+                        <Line 
+                            data= {weightLineState}
+                            options = {{
+                                title:{
+                                    display:true,
+                                    text:'Recorded weight per day.',
+                                    fontSize:20,
+                                },
+                            }}
+                        />
+                    </Col>
+                </Row>
             </Container>
             }
         </>

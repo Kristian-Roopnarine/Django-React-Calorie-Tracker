@@ -13,6 +13,8 @@ export const REGISTER_SUCCESS = "REGISTER_SUCCESS"
 export const REGISTER_FAIL = "REGISTER_FAIL" 
 export const LOGOUT = "LOGOUT"
 export const GET_USDA_KEY = "GET_USDA_KEY"
+export const GET_PROFILE_DATA = "GET_PROFILE_DATA"
+export const UPDATE_PROFILE_DATA = "UPDATE_PROFILE_DATA"
 
 
 ///////////////////////

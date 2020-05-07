@@ -1,7 +1,6 @@
 import React from 'react'
 import {useSelector,useDispatch} from 'react-redux'
 import { Redirect,Link } from 'react-router-dom'
-import {logout} from '../actions/auth'
 import {Container,Col,Row} from 'react-bootstrap'
 import Snacks from './Snacks'
 import Breakfast from './Breakfast'
@@ -16,7 +15,6 @@ import SearchFood from './SearchFood'
 
 const Home = (props) => {
     const auth = useSelector(state => state.auth)
-    const dispatch = useDispatch()
 
     const renderData = () => {
 
@@ -27,8 +25,6 @@ const Home = (props) => {
         } else {
             return <Redirect to="/login" />
         }
-
-        
     }
 
     return (

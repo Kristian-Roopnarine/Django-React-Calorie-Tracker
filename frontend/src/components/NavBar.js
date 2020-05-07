@@ -13,7 +13,6 @@ const NavBar = () => {
             
             <Nav className="mr-auto">
                 <Nav.Link className="text-dark" href="/profile">Your Profile</Nav.Link>
-                <Nav.Link className="text-dark" href="/stats">Your Stats</Nav.Link>
             </Nav>
             <Button inline variant="outline-primary" onClick={() => dispatch(logout())}> Logout</Button>
         </Navbar>

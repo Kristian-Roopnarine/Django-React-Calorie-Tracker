@@ -8,7 +8,9 @@ import {
     REGISTER_FAIL,
     REGISTER_SUCCESS,
     LOGOUT,
-    GET_USDA_KEY
+    GET_USDA_KEY,
+    GET_PROFILE_DATA,
+    UPDATE_PROFILE_DATA
 } from './types'
 
 
@@ -22,7 +24,6 @@ export const loadUser = () => (dispatch,getState) => {
     //get token from the state
 
     const token = getState().auth.token
-    console.log(token)
 
     //headers
     const config = {
@@ -33,7 +34,6 @@ export const loadUser = () => (dispatch,getState) => {
 
     // if token add to headers config
     if (token) {
-        console.log('found token')
         config.headers['Authorization'] = `Token ${token}`
     }
 
@@ -52,7 +52,7 @@ export const loadUser = () => (dispatch,getState) => {
 }
 
 export const getKey = () => (dispatch,getState) =>{
-    const config = configureConfig(dispatch,getState)
+    const config = configureConfig(getState)
     axios.get('http://localhost:8000/api/usda-key',config)
     .then(res => {
         dispatch({
@@ -149,8 +149,32 @@ export const logout = () => (dispatch,getState) => {
         })
 }
 
+export const getProfileData = () => (dispatch,getState) => {
+    const config = configureConfig(getState)
+    axios.get('http://localhost:8000/api/profile',config)
+    .then(res=>{
+        dispatch({
+            type:GET_PROFILE_DATA,
+            payload:res.data
+        })
+    })
+}
+export const updateProfileData = (calories) => (dispatch,getState) => {
+    const config = configureConfig(getState)
+    const body = JSON.stringify({"daily_calories":calories})
+    console.log(body)
+    axios.put('http://localhost:8000/api/profile',body,config)
+    .then(res=>{
+        dispatch({
+            type:UPDATE_PROFILE_DATA,
+            payload:res.data
+        })
+    }).catch(err=>{
+        console.log(err)
+    })
+}
 // helper function
-const configureConfig = (dispatch,getState) => {
+const configureConfig = (getState) => {
     const token = getState().auth.token
 
     const config = {

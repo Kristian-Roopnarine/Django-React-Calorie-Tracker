@@ -4,6 +4,7 @@ import {useSelector,useDispatch} from 'react-redux'
 import {getCalories} from '../actions/nutrition'
 
 const TotalCalories = () => {
+    const auth = useSelector(state=>state.auth)
     const total = useSelector(state => state.nutrition.calories)
     const dispatch= useDispatch()
 
@@ -39,8 +40,10 @@ const TotalCalories = () => {
 
                     <Col xs={12} md={3}>
                         <Card body className="text-center">
-                            <h3>Daily Total Calories</h3>
-                            <h4>{total.total ? total.total:0}</h4>    
+                            <h4>Daily Total Calories</h4>
+                            <h6>{total.total ? total.total:0}</h6>   
+                            <hr style={{width:"4rem"}} />
+                            <h6>{auth.userCalorieGoal.daily_calories}</h6>
                         </Card>
                         
                     </Col>

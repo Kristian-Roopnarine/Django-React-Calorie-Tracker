@@ -14,10 +14,9 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id','username']
 
 class ProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
     class Meta:
         model = Profile
-        fields = ['id','daily_calories','goal_weight','user']
+        fields = ['daily_calories']
 
 
 # Register serializer

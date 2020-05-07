@@ -199,7 +199,7 @@ export const getUserWeight = () => (dispatch,getState) => {
 
 export const updateUserWeight = (weight) => (dispatch,getState) => {
     const config = configureConfig(dispatch,getState)
-    const body = JSON.stringify(weight)
+    const body = JSON.stringify({"number":weight})
     axios.post('http://localhost:8000/api/user/weight',body,config)
     .then(res =>{
         console.log(res.data)

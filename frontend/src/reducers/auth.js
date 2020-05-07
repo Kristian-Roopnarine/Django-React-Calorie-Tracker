@@ -7,6 +7,8 @@ import {
     REGISTER_FAIL,
     REGISTER_SUCCESS,
     LOGOUT,
+    GET_PROFILE_DATA,
+    UPDATE_PROFILE_DATA
 } from '../actions/types'
 
 
@@ -15,6 +17,7 @@ const initialState = {
     isAuthenticated:null,
     isLoading:false,
     user:null,
+    userCalorieGoal:0
 }
 
 
@@ -52,6 +55,12 @@ export default function(state=initialState,action){
                 user:null,
                 isAuthenticated:false,
                 isLoading:false
+            }
+        case GET_PROFILE_DATA:
+        case UPDATE_PROFILE_DATA:
+            return {
+                ...state,
+                userCalorieGoal:action.payload
             }
         default:
             return state

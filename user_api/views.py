@@ -9,12 +9,19 @@ from rest_framework import permissions
 from datetime import datetime as dt,timedelta
 # Create your views here.
 
-@api_view(['GET'])
-def profile_detail(request,pk):
-    profile = Profile.objects.get(id=pk)
-    serializer = ProfileSerializer(profile)
-    return Response(serializer.data)
-
+@api_view(['GET','PUT'])
+@permission_classes([permissions.IsAuthenticated,])
+def profile_detail(request):
+    profile = Profile.objects.get(id=request.user.profile.id)
+    if request.method == 'GET':
+        serializer = ProfileSerializer(profile)
+        return Response(serializer.data)
+    
+    if request.method == 'PUT':
+        serializer = ProfileSerializer(profile,data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(user=profile.user)
+        return Response(serializer.data)
 
 class RegistrationAPI(generics.GenericAPIView):
     serializer_class = RegisterSerializer
@@ -71,10 +78,13 @@ def get_user_weight(request):
 
     if request.method == "POST":
         #check if object exists
-        user_weight = Weight.objects.get(user=request.user.profile.id,date_recorded=today)
-        if user_weight.exists():
+    
+        if Weight.objects.filter(user=request.user.profile.id,date_recorded=today).exists():
+            user_weight = Weight.objects.get(user=request.user.profile.id,date_recorded=today)
             #update value
             serializer = WeightSerializer(user_weight,data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save(user=profile)
         else:
             serializer = WeightSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)

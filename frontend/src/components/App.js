@@ -7,11 +7,11 @@ import store from '../store'
 import Alerts from './Alerts.js'
 import Register from './accounts/Register'
 import Login from './accounts/Login'
-import {loadUser,getKey} from '../actions/auth'
+import {loadUser,getProfileData} from '../actions/auth'
+import {getUserWeight} from '../actions/nutrition'
 import {BrowserRouter,Route} from 'react-router-dom'
 import Home from './Home'
 import NavBar from './NavBar'
-import Statistics from './statistics/Statistics'
 import Profile from './Profile'
 
 // Alert options
@@ -24,6 +24,7 @@ function App() {
 
   useEffect(() =>{
     store.dispatch(loadUser())
+    store.dispatch(getProfileData())
   })
 
   return (
@@ -34,7 +35,6 @@ function App() {
           <Route path="/" exact component= {Home}/>
           <Route path="/register" component= {Register}/>
           <Route path="/login" component = {Login}/>
-          <Route path="/stats" component = {Statistics}/>
           <Route path="/profile" component = {Profile} />
 
         </AlertProvider>
