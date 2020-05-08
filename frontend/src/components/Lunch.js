@@ -17,7 +17,7 @@ const Lunch = (props) => {
     }
     return (
         <>
-            <h4>Lunch</h4>
+            <h4 className="text-success">Lunch</h4>
             <FoodTable 
                 foodList = {lunchList}
                 category="L"

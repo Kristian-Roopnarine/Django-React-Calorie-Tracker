@@ -59,8 +59,8 @@ const CreateFoodForm = (props) => {
                         <Form.Control size="sm" id="carbs" type="carbs" value={formData.carbs} placeholder="Carbs (g)" onChange={(e) => updateFoodInput(e)}/>
                     </td>
 
-                    <td>
-                        <Button variant="success" type="submit" size="sm" onClick={submitFood}>
+                    <td  style={{width:"6rem"}}>
+                        <Button style={{width:"5rem"}} variant="success" type="submit" size="sm" onClick={submitFood}>
                             Add Food
                         </Button>    
                     </td>

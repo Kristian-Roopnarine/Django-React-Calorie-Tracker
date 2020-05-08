@@ -13,11 +13,11 @@ const Snacks = (props) => {
     
     const deleteSnacks= (food) => {
         dispatch(deleteFood(food))
-        
     }
+
     return (
         <>
-            <h4>Snacks</h4>
+            <h4 className="text-success">Snacks</h4>
             <FoodTable 
                 foodList = {snacksList}
                 category="S"
