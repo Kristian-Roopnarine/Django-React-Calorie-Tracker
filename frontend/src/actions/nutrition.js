@@ -15,10 +15,13 @@ import {
     UPDATE_WEIGHT
 } from '../actions/types'
 
+const foodLogUrl = 'http://localhost:8000/api/food-log/'
+const foodCategoryUrl = 'http://localhost:8000/api/'
+
 export const loadBreakfastList = () =>(dispatch,getState) => {
     const config = configureConfig(dispatch,getState)
 
-    axios.get('http://localhost:8000/api/breakfast',config)
+    axios.get(foodCategoryUrl + 'breakfast',config)
     .then(res => {
         dispatch({
             type:GET_BREAKFAST,
@@ -35,7 +38,7 @@ export const loadBreakfastList = () =>(dispatch,getState) => {
 export const loadLunchList = () =>(dispatch,getState) => {
     const config = configureConfig(dispatch,getState)
 
-    axios.get('http://localhost:8000/api/lunch',config)
+    axios.get(foodCategoryUrl + 'lunch',config)
     .then(res => {
         dispatch({
             type:GET_LUNCH,
@@ -52,7 +55,7 @@ export const loadLunchList = () =>(dispatch,getState) => {
 export const loadDinnerList = () =>(dispatch,getState) => {
     const config = configureConfig(dispatch,getState)
 
-    axios.get('http://localhost:8000/api/dinner',config)
+    axios.get(foodCategoryUrl + 'dinner',config)
     .then(res => {
         dispatch({
             type:GET_DINNER,
@@ -69,7 +72,7 @@ export const loadDinnerList = () =>(dispatch,getState) => {
 export const loadSnackList = () =>(dispatch,getState) => {
     const config = configureConfig(dispatch,getState)
 
-    axios.get('http://localhost:8000/api/snacks',config)
+    axios.get(foodCategoryUrl + 'snacks',config)
     .then(res => {
         
         dispatch({
@@ -87,7 +90,7 @@ export const loadSnackList = () =>(dispatch,getState) => {
 export const loadCheatList = () =>(dispatch,getState) => {
     const config = configureConfig(dispatch,getState)
 
-    axios.get('http://localhost:8000/api/cheat',config)
+    axios.get(foodCategoryUrl + 'cheat',config)
     .then(res => {
         dispatch({
             type:GET_CHEAT,
@@ -105,7 +108,7 @@ export const addFood = (food) => (dispatch,getState) => {
     const config = configureConfig(dispatch,getState)
     const body = JSON.stringify(food)
     console.log(food)
-    axios.post(`http://localhost:8000/api/food-log/`,body,config)
+    axios.post(foodLogUrl,body,config)
     .then( res => {
         dispatch({
             type:UPDATE_CALORIES,
@@ -130,7 +133,7 @@ export const editFood = (foodItem,original) => (dispatch,getState) => {
     const protein =  foodItem.protein - original.protein
     const carbs = foodItem.carbs - original.carbs
 
-    axios.put(`http://localhost:8000/api/food-log/${original.id}/`,body,config)
+    axios.put(foodLogUrl+original.id,body,config)
     .then(res =>{
         dispatch({
             type:EDIT_FOOD,
@@ -156,7 +159,7 @@ export const deleteFood = (food) => (dispatch,getState) => {
     const carbs = -food.carbs
     const config = configureConfig(dispatch,getState)
 
-    axios.delete(`http://localhost:8000/api/food-log/${id}`,config)
+    axios.delete(foodLogUrl + id,config)
     .then(
         dispatch({
             type:DELETE_FOOD,

@@ -16,10 +16,10 @@ const NavBar = () => {
                 <Nav className="mr-auto">
                     <Nav.Link className="text-dark" href="/profile">Your Profile</Nav.Link>
                 </Nav>
-                <Button inline variant="outline-primary" onClick={() => dispatch(logout())}> Logout</Button> 
+                <Nav.Link href='/login' onClick={() => dispatch(logout())}>Logout</Nav.Link> 
             </> :
             <>
-                <Navbar.Brand href="#home">Welcome</Navbar.Brand>
+                <Navbar.Brand href="/">Welcome</Navbar.Brand>
                 <Nav.Link className="text-dark" href="/register">Sign up</Nav.Link>
                 <Nav.Link className="text-dark" href="/login">Login </Nav.Link>
             </>
