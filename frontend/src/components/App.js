@@ -8,7 +8,6 @@ import Alerts from './Alerts.js'
 import Register from './accounts/Register'
 import Login from './accounts/Login'
 import {loadUser,getProfileData} from '../actions/auth'
-import {getUserWeight} from '../actions/nutrition'
 import {BrowserRouter,Route} from 'react-router-dom'
 import Home from './Home'
 import NavBar from './NavBar'
@@ -21,7 +20,6 @@ const alertOptions =  {
 }
 
 function App() {
-
   useEffect(() =>{
     store.dispatch(loadUser())
     store.dispatch(getProfileData())
@@ -32,11 +30,11 @@ function App() {
       <BrowserRouter>
         <AlertProvider template={AlertTemplate} {...alertOptions}>
           <NavBar />
+          <Alerts />
           <Route path="/" exact component= {Home}/>
           <Route path="/register" component= {Register}/>
           <Route path="/login" component = {Login}/>
           <Route path="/profile" component = {Profile} />
-
         </AlertProvider>
       </BrowserRouter>
     </Provider>

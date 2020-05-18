@@ -12,11 +12,11 @@ const Alerts = (props) =>{
     const dispatch = useDispatch() 
 
     useEffect(()=>{
-        alert.show("It works")
     },[])
 
     return (
         <>
+        {messages}
         </>
     )
 }

@@ -1,4 +1,7 @@
-import { GET_ERRORS } from "../actions/types"
+import { 
+    GET_ERRORS,
+    AUTH_ERROR
+} from "../actions/types"
 
 const initialState = {
     msg:{},
@@ -12,6 +15,11 @@ export default function(state = initialState,action){
             return {
                 msg:action.payload.msg,
                 status:action.payload.status
+            }
+        case AUTH_ERROR:
+            return{
+                ...state,
+                msg:action.payload
             }
         default:
             return state

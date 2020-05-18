@@ -104,15 +104,16 @@ export const loadCheatList = () =>(dispatch,getState) => {
 export const addFood = (food) => (dispatch,getState) => {
     const config = configureConfig(dispatch,getState)
     const body = JSON.stringify(food)
-    axios.post(`http://localhost:8000/api/user-nutrition/`,body,config)
+    console.log(food)
+    axios.post(`http://localhost:8000/api/food-log/`,body,config)
     .then( res => {
         dispatch({
             type:UPDATE_CALORIES,
-            payload:res.data.data
+            payload:res.data
         })
         dispatch({
             type:ADD_FOOD,
-            payload:res.data.data
+            payload:res.data
         })
     }).catch(err =>{
         console.log(err)
@@ -129,11 +130,11 @@ export const editFood = (foodItem,original) => (dispatch,getState) => {
     const protein =  foodItem.protein - original.protein
     const carbs = foodItem.carbs - original.carbs
 
-    axios.put(`http://localhost:8000/api/food/${original.id}/`,body,config)
+    axios.put(`http://localhost:8000/api/food-log/${original.id}/`,body,config)
     .then(res =>{
         dispatch({
             type:EDIT_FOOD,
-            payload:res.data.item
+            payload:res.data
         })
     }).then (
         dispatch({
@@ -155,7 +156,7 @@ export const deleteFood = (food) => (dispatch,getState) => {
     const carbs = -food.carbs
     const config = configureConfig(dispatch,getState)
 
-    axios.delete(`http://localhost:8000/api/food/${id}`,config)
+    axios.delete(`http://localhost:8000/api/food-log/${id}`,config)
     .then(
         dispatch({
             type:DELETE_FOOD,

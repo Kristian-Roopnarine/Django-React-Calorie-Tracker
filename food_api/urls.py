@@ -3,12 +3,9 @@ from rest_framework.routers import DefaultRouter
 from . import views
 
 router = DefaultRouter()
-router.register('api/food',views.FoodViewSet)
+router.register(r'api/food-log',views.FoodLogViewSet,basename='food-log')
 
 urlpatterns = [
-    #path('',include(router.urls)),
-    path('api/user-nutrition/',views.daily_nutrition),
-    path('api/food/<pk>/',views.food_detail),
     path('api/user/total-calories',views.total_user_calories),
 
     # react component URLS
@@ -18,5 +15,7 @@ urlpatterns = [
     path('api/snacks',views.snack_list),   
     path('api/cheat',views.cheat_list), 
 
-    path('api/30-day-calories',views.get_30_days_calories)
+    path('api/30-day-calories',views.get_30_days_calories),
 ]
+
+urlpatterns += router.urls

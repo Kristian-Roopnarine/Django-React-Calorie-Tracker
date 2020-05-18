@@ -21,7 +21,7 @@ const Dinner = (props) => {
             <FoodTable 
                 foodList = {dinnerList}
                 category="D"
-                onClick={deleteDinner}
+                onClickTrash={deleteDinner}
             />
         </>
     )

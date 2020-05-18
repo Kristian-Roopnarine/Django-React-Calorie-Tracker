@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework import viewsets,permissions
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.response import Response
-from .serializers import FoodSerializer,APISSerializer
-from .models import Food,APIS
+from .serializers import FoodSerializer
+from .models import Food
 from user_api.models import Profile
 from user_api.serializers import UserSerializer,ProfileSerializer
 from django.utils import timezone
@@ -12,91 +12,18 @@ from django.db.models import Sum
 
 # Create your views here.
 
-class FoodViewSet(viewsets.ModelViewSet):
-    queryset = Food.objects.all()
+class FoodLogViewSet(viewsets.ModelViewSet):
     serializer_class = FoodSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
-# need a view to return the food eaten on a certain day for a user
-@api_view(['GET','POST'])
-@permission_classes([permissions.IsAuthenticated,])
-def daily_nutrition(request):
-    """
-    ** GET
-    api/user-nutrition/
-
-    json
-    {"data":[
-        {
-            "name":"test",
-            "total_calories":"500",
-            "fat":"5",
-            "protein:"10",
-            "carbs":"15",
-            "category":"S",
-            "date_eaten":todays_date,
-            "user":{
-                "id":1,
-                "username":"bob",
-            }
-        },
-    ]}
-
-    ** POST
-    api/user-nutrition/
-
-    json
-    {"data":[
-        {
-            "name":"test", (optional)
-            "total_calories":"500",
-            "fat":"5",
-            "protein:"10",
-            "carbs":"15",
-            "category":"S",
-            "date_eaten":todays_date, (optional)
-        },
-    ]}
-    """
-    if request.method == 'GET':
+    def get_queryset(self):
         today = dt.today()
         tomorrow = today + timedelta(1)
-        user_food = Food.objects.filter(user=request.user.profile.id,date_eaten__gt=today,date_eaten__lt=tomorrow)
-        user_food = FoodSerializer(user_food,many=True)
-        return Response({"message":"success","user_food":user_food.data})
-
-    #creates food instances
-    if request.method == 'POST':
-        profile = Profile.objects.get(id=request.user.profile.id)
-        serializer = FoodSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save(user=profile)
-        return Response({"message":"success","data":serializer.data})
-
-
-@api_view(['DELETE','PUT'])
-@permission_classes([permissions.IsAuthenticated,])
-def food_detail(request,pk):
-    # deletes food instances
-    if request.method == 'DELETE':
-        try:
-            food = Food.objects.get(id=pk,user=request.user.profile.id)
-            food.delete()
-        except:
-            return Response({'message':"Uh-oh looks like that item doesn't exist."})
-        return Response({'message':"succesful"})
-
-    #updates food instances
-    if request.method == 'PUT':
-        try:
-            food = Food.objects.get(id=pk,user=request.user.profile.id)
-            profile = Profile.objects.get(id=request.user.profile.id)
-            serializer = FoodSerializer(food,data=request.data)
-            serializer.is_valid(raise_exception=True)
-            serializer.save(user=profile)
-        except:
-            return Response({'message':"Uh-oh looks like that item doesn't exist."})
-        return Response({'message':"succesful","item":serializer.data})
+        return Food.objects.filter(user=self.request.user.profile.id,date_eaten__range=[today,tomorrow])
     
+    def perform_create(self,serializer):
+        serializer.save(user=self.request.user.profile)
+
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated,])
 def breakfast_list(request):
@@ -173,7 +100,6 @@ def cheat_list(request):
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated,])
 def total_user_calories(request):
-    
     # food for today
     today = dt.today()
     tomorrow = today + timedelta(1)

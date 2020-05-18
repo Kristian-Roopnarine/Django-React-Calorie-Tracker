@@ -8,7 +8,6 @@ import {
     REGISTER_FAIL,
     REGISTER_SUCCESS,
     LOGOUT,
-    GET_USDA_KEY,
     GET_PROFILE_DATA,
     UPDATE_PROFILE_DATA
 } from './types'
@@ -46,20 +45,10 @@ export const loadUser = () => (dispatch,getState) => {
         }).catch(err => {
             console.log(err)
             dispatch({
-                type:AUTH_ERROR
+                type:AUTH_ERROR,
+                payload:err
             })
         })
-}
-
-export const getKey = () => (dispatch,getState) =>{
-    const config = configureConfig(getState)
-    axios.get('http://localhost:8000/api/usda-key',config)
-    .then(res => {
-        dispatch({
-            type:GET_USDA_KEY,
-            payload:res.data.data
-        })
-    })
 }
 
 
@@ -85,7 +74,8 @@ export const login = (username,password) => dispatch => {
         }).catch(err => {
             console.log(err)
             dispatch({
-                type:LOGIN_FAIL
+                type:AUTH_ERROR,
+                payload:err
             })
         })
 }
@@ -111,7 +101,8 @@ export const register = (username,password) => dispatch => {
         }).catch(err => {
             console.log(err)
             dispatch({
-                type:REGISTER_FAIL
+                type:AUTH_ERROR,
+                payload:err.response.data
             })
         })
 }
@@ -120,7 +111,6 @@ export const logout = () => (dispatch,getState) => {
     //get token from the state
 
     const token = getState().auth.token
-    console.log(token)
 
     //headers
     const config = {
@@ -131,7 +121,6 @@ export const logout = () => (dispatch,getState) => {
 
     // if token add to headers config
     if (token) {
-        console.log('found token')
         config.headers['Authorization'] = `Token ${token}`
     }
 
@@ -144,7 +133,8 @@ export const logout = () => (dispatch,getState) => {
         }).catch(err => {
             console.log(err)
             dispatch({
-                type:AUTH_ERROR
+                type:AUTH_ERROR,
+                payload:err
             })
         })
 }
@@ -170,7 +160,10 @@ export const updateProfileData = (calories) => (dispatch,getState) => {
             payload:res.data
         })
     }).catch(err=>{
-        console.log(err)
+        dispatch({
+            type:AUTH_ERROR,
+            payload:err
+        })
     })
 }
 // helper function
