@@ -1,6 +1,7 @@
 import { 
     GET_ERRORS,
-    AUTH_ERROR
+    AUTH_ERROR,
+    FOOD_ERROR
 } from "../actions/types"
 
 const initialState = {
@@ -18,6 +19,11 @@ export default function(state = initialState,action){
             }
         case AUTH_ERROR:
             return{
+                ...state,
+                msg:action.payload
+            }
+        case FOOD_ERROR:
+            return {
                 ...state,
                 msg:action.payload
             }

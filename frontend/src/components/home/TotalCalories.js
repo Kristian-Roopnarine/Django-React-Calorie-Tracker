@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react'
 import {Container,Row,Col,Card} from 'react-bootstrap'
 import {useSelector,useDispatch} from 'react-redux'
-import {getCalories} from '../actions/nutrition'
+import {getCalories} from '../../actions/nutrition'
 import {Doughnut} from 'react-chartjs-2'
 
 const TotalCalories = () => {
@@ -54,7 +54,7 @@ const TotalCalories = () => {
         <>
             <Container fluid className="mt-3">
                 <Row>
-                    <Col xs={12} md={{span:6,offset:1}}>
+                    <Col xs={12} md={{span:6,offset:2}}>
                         <Card body className="border-0">
                             <Row>   
                                 <Doughnut 
@@ -81,7 +81,7 @@ const TotalCalories = () => {
                         
                     </Col>
 
-                    <Col xs={12} md={{span:3,offset:1}}>
+                    <Col xs={12} md={{span:2,offset:1}}>
                         <Card body className="text-center">
                             <h4>Daily Total Calories</h4>
                             <h6>{total.total ? total.total:0}</h6>   

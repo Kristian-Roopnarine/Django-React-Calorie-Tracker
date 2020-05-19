@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import EditFoodForm from './forms/EditFoodForm'
+import EditFoodForm from '../forms/EditFoodForm'
 import {faTrash,faEdit} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 

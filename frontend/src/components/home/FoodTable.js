@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import CreateFoodForm from './forms/CreateFoodForm'
+import CreateFoodForm from '../forms/CreateFoodForm'
 import {Table} from 'react-bootstrap'
 import FoodRow from './FoodRow'
 

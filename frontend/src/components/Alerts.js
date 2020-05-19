@@ -16,7 +16,6 @@ const Alerts = (props) =>{
 
     return (
         <>
-        {messages}
         </>
     )
 }

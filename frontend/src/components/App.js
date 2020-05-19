@@ -9,7 +9,7 @@ import Register from './accounts/Register'
 import Login from './accounts/Login'
 import {loadUser,getProfileData} from '../actions/auth'
 import {BrowserRouter,Route} from 'react-router-dom'
-import Home from './Home'
+import Home from './home/Home'
 import NavBar from './NavBar'
 
 // Alert options

@@ -119,7 +119,12 @@ export const addFood = (food) => (dispatch,getState) => {
             payload:res.data
         })
     }).catch(err =>{
-        console.log(err)
+        console.log(err.response.data)
+        dispatch({
+            type:FOOD_ERROR,
+            payload:err.response.data
+        })
+        
     })
 }
 

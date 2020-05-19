@@ -13,9 +13,6 @@ const NavBar = () => {
             auth.isAuthenticated ?
             <>
                 <Navbar.Brand href="/">Welcome {auth.user.username}</Navbar.Brand>
-                <Nav className="mr-auto">
-                    <Nav.Link className="text-dark" href="/profile">Your Profile</Nav.Link>
-                </Nav>
                 <Nav.Link href='/login' onClick={() => dispatch(logout())}>Logout</Nav.Link> 
             </> :
             <>
