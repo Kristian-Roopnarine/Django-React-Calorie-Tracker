@@ -5,6 +5,8 @@ from . import views
 router = DefaultRouter()
 router.register(r'api/food-log',views.FoodLogViewSet,basename='food-log')
 
+
+
 urlpatterns = [
     path('api/user/total-calories',views.total_user_calories),
 

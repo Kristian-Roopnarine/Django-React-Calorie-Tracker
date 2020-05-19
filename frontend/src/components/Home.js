@@ -2,11 +2,7 @@ import React from 'react'
 import { Redirect,Link } from 'react-router-dom'
 import {Container,Col,Row} from 'react-bootstrap'
 import {connect} from 'react-redux'
-import Snacks from './Snacks'
-import Breakfast from './Breakfast'
-import Cheat from './Cheat'
-import Dinner from './Dinner'
-import Lunch from './Lunch'
+import DailyFoodLog from './DailyFoodLog'
 import TotalCalories from './TotalCalories'
 import SearchFood from './SearchFood'
 
@@ -29,11 +25,7 @@ class Home extends React.Component {
                     <Container fluid className="mt-3">
                         <Row>
                             <Col xs={12} s={12} md={{span:6,offset:1}}>
-                                <Breakfast />
-                                <Lunch />
-                                <Dinner />
-                                <Snacks />
-                                <Cheat />
+                                <DailyFoodLog />
                             </Col>
                             <Col xs={12} s={12} md={{span:3,offset:1}}>
                             </Col>

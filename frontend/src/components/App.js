@@ -11,7 +11,6 @@ import {loadUser,getProfileData} from '../actions/auth'
 import {BrowserRouter,Route} from 'react-router-dom'
 import Home from './Home'
 import NavBar from './NavBar'
-import Profile from './Profile'
 
 // Alert options
 const alertOptions =  {
@@ -34,7 +33,6 @@ function App() {
           <Route path="/" exact component= {Home}/>
           <Route path="/register" component= {Register}/>
           <Route path="/login" component = {Login}/>
-          <Route path="/profile" component = {Profile} />
         </AlertProvider>
       </BrowserRouter>
     </Provider>
