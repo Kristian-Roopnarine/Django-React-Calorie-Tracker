@@ -1,11 +1,11 @@
 import React,{useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {editFood} from '../../actions/nutrition'
-import {Form,Col,Row,Button} from 'react-bootstrap'
+import {Form,Button} from 'react-bootstrap'
 
 const EditFoodForm = (props) => {
     const dispatch = useDispatch()
-    
+
     const [formData,setFormData] = useState({
         name:props.food.name,
         total_calories:props.food.total_calories,
