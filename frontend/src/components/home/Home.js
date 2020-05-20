@@ -20,6 +20,7 @@ class Home extends React.Component {
 
     }
 
+    /*
     componentDidMount(){
         if (!this.props.auth.isAuthenticated){
             return <Redirect to='/login' />
@@ -29,6 +30,7 @@ class Home extends React.Component {
             return
         }
     }
+    */
 
     onClickShowStats = () => {
         this.setState({hideStatistics:false,statsButtonColor:'success',foodLogButtonColor:'outline-success'})

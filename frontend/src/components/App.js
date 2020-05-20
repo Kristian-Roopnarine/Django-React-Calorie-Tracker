@@ -11,6 +11,7 @@ import {loadUser,getProfileData} from '../actions/auth'
 import {BrowserRouter,Route} from 'react-router-dom'
 import Home from './home/Home'
 import NavBar from './NavBar'
+import PrivateRoute from './common/PrivateRoute'
 
 // Alert options
 const alertOptions =  {
@@ -30,7 +31,7 @@ function App() {
         <AlertProvider template={AlertTemplate} {...alertOptions}>
           <NavBar />
           <Alerts />
-          <Route path="/" exact component= {Home}/>
+          <PrivateRoute path="/" exact component={Home}/>
           <Route path="/register" component= {Register}/>
           <Route path="/login" component = {Login}/>
         </AlertProvider>
