@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {connect} from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
@@ -19,26 +20,30 @@ const alertOptions =  {
   position:'top center'
 }
 
-function App() {
-  useEffect(() =>{
-    store.dispatch(loadUser())
-    store.dispatch(getProfileData())
-  })
+class App extends React.Component {
+  componentDidMount(){
+    this.props.loadUser()
+    this.props.getProfileData()
+  }
 
-  return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <AlertProvider template={AlertTemplate} {...alertOptions}>
-          <NavBar />
-          <Alerts />
-          <PrivateRoute path="/" exact component={Home}/>
-          <Route path="/register" component= {Register}/>
-          <Route path="/login" component = {Login}/>
-        </AlertProvider>
-      </BrowserRouter>
-    </Provider>
-    
-  );
+  render(){
+    return (
+      <Provider store={store}>
+        <BrowserRouter>
+          <AlertProvider template={AlertTemplate} {...alertOptions}>
+            <NavBar />
+            <Alerts />
+            <PrivateRoute path="/" exact component={Home}/>
+            <Route path="/register" component= {Register}/>
+            <Route path="/login" component = {Login}/>
+          </AlertProvider>
+        </BrowserRouter>
+      </Provider>
+    )
+  }
 }
 
-export default App;
+export default connect(mapStateToProps{
+  loadUser,
+  getProfileData
+})(App);

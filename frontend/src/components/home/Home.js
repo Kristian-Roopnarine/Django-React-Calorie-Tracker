@@ -20,18 +20,6 @@ class Home extends React.Component {
 
     }
 
-    /*
-    componentDidMount(){
-        if (!this.props.auth.isAuthenticated){
-            return <Redirect to='/login' />
-        } else if (this.props.auth.isLoading){
-            return <h2>Loading..</h2>
-        } else {
-            return
-        }
-    }
-    */
-
     onClickShowStats = () => {
         this.setState({hideStatistics:false,statsButtonColor:'success',foodLogButtonColor:'outline-success'})
     }
