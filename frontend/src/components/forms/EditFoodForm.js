@@ -4,6 +4,7 @@ import {editFood} from '../../actions/nutrition'
 import {Form,Col,Row,Button} from 'react-bootstrap'
 
 const EditFoodForm = (props) => {
+    const dispatch = useDispatch()
     
     const [formData,setFormData] = useState({
         name:props.food.name,
@@ -23,7 +24,7 @@ const EditFoodForm = (props) => {
         id:props.food.id
     }
 
-    const dispatch = useDispatch()
+    
 
     const submitFood = (e) => {
         e.preventDefault()

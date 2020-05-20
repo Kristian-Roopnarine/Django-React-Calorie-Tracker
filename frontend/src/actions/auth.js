@@ -9,7 +9,8 @@ import {
     REGISTER_SUCCESS,
     LOGOUT,
     GET_PROFILE_DATA,
-    UPDATE_PROFILE_DATA
+    UPDATE_PROFILE_DATA,
+    GET_ERRORS
 } from './types'
 
 
@@ -43,10 +44,13 @@ export const loadUser = () => (dispatch,getState) => {
                 payload:res.data
             })
         }).catch(err => {
-            console.log(err)
+            const errors = {
+                msg:err.response.data,
+                status:err.response.status
+            }
             dispatch({
-                type:AUTH_ERROR,
-                payload:err
+                type:GET_ERRORS,
+                payload:errors
             })
         })
 }
@@ -71,10 +75,13 @@ export const login = (username,password) => dispatch => {
                 payload:res.data
             })
         }).catch(err => {
-            console.log(err)
+            const errors = {
+                msg:err.response.data,
+                status:err.response.status
+            }
             dispatch({
-                type:AUTH_ERROR,
-                payload:err
+                type:GET_ERRORS,
+                payload:errors
             })
         })
 }
@@ -98,10 +105,13 @@ export const register = (username,password) => dispatch => {
                 payload:res.data
             })
         }).catch(err => {
-            console.log(err)
+            const errors = {
+                msg:err.response.data,
+                status:err.response.status
+            }
             dispatch({
-                type:AUTH_ERROR,
-                payload:err.response.data
+                type:GET_ERRORS,
+                payload:errors
             })
         })
 }
@@ -130,10 +140,13 @@ export const logout = () => (dispatch,getState) => {
                 payload:res.data
             })
         }).catch(err => {
-            console.log(err)
+            const errors = {
+                msg:err.response.data,
+                status:err.response.status
+            }
             dispatch({
-                type:AUTH_ERROR,
-                payload:err
+                type:GET_ERRORS,
+                payload:errors
             })
         })
 }
@@ -146,8 +159,18 @@ export const getProfileData = () => (dispatch,getState) => {
             type:GET_PROFILE_DATA,
             payload:res.data
         })
+    }).catch(err=>{
+        const errors = {
+            msg:err.response.data,
+            status:err.response.status
+        }
+        dispatch({
+            type:GET_ERRORS,
+            payload:errors
+        })
     })
 }
+
 export const updateProfileData = (calories) => (dispatch,getState) => {
     const config = configureConfig(getState)
     const body = JSON.stringify({"daily_calories":calories})
@@ -158,9 +181,13 @@ export const updateProfileData = (calories) => (dispatch,getState) => {
             payload:res.data
         })
     }).catch(err=>{
+        const errors = {
+            msg:err.response.data,
+            status:err.response.status
+        }
         dispatch({
-            type:AUTH_ERROR,
-            payload:err
+            type:GET_ERRORS,
+            payload:errors
         })
     })
 }

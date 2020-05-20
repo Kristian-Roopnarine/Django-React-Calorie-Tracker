@@ -8,11 +8,11 @@ import {
     ADD_FOOD,
     EDIT_FOOD,
     DELETE_FOOD,
-    FOOD_ERROR,
     GET_CALORIES,
     UPDATE_CALORIES,
     GET_WEIGHT,
-    UPDATE_WEIGHT
+    UPDATE_WEIGHT,
+    GET_ERRORS
 } from '../actions/types'
 
 const foodLogUrl = 'http://localhost:8000/api/food-log/'
@@ -28,9 +28,13 @@ export const loadBreakfastList = () =>(dispatch,getState) => {
             payload:res.data.data
         })
     }).catch(err =>{
-        console.log(err)
+        const errors = {
+            msg:err.response.data,
+            status:err.response.status
+        }
         dispatch({
-            type:FOOD_ERROR
+            type:GET_ERRORS,
+            payload:errors
         })
     })
 }
@@ -45,9 +49,13 @@ export const loadLunchList = () =>(dispatch,getState) => {
             payload:res.data.data
         })
     }).catch(err =>{
-        console.log(err)
+        const errors = {
+            msg:err.response.data,
+            status:err.response.status
+        }
         dispatch({
-            type:FOOD_ERROR
+            type:GET_ERRORS,
+            payload:errors
         })
     })
 }
@@ -62,9 +70,13 @@ export const loadDinnerList = () =>(dispatch,getState) => {
             payload:res.data.data
         })
     }).catch(err =>{
-        console.log(err)
+        const errors = {
+            msg:err.response.data,
+            status:err.response.status
+        }
         dispatch({
-            type:FOOD_ERROR
+            type:GET_ERRORS,
+            payload:errors
         })
     })
 }
@@ -80,9 +92,13 @@ export const loadSnackList = () =>(dispatch,getState) => {
             payload:res.data.data
         })
     }).catch(err =>{
-        console.log(err)
+        const errors = {
+            msg:err.response.data,
+            status:err.response.status
+        }
         dispatch({
-            type:FOOD_ERROR
+            type:GET_ERRORS,
+            payload:errors
         })
     })
 }
@@ -97,9 +113,13 @@ export const loadCheatList = () =>(dispatch,getState) => {
             payload:res.data.data
         })
     }).catch(err =>{
-        console.log(err)
+        const errors = {
+            msg:err.response.data,
+            status:err.response.status
+        }
         dispatch({
-            type:FOOD_ERROR
+            type:GET_ERRORS,
+            payload:errors
         })
     })
 }
@@ -119,10 +139,13 @@ export const addFood = (food) => (dispatch,getState) => {
             payload:res.data
         })
     }).catch(err =>{
-        console.log(err.response.data)
+        const errors = {
+            msg:err.response.data,
+            status:err.response.status
+        }
         dispatch({
-            type:FOOD_ERROR,
-            payload:err.response.data
+            type:GET_ERRORS,
+            payload:errors
         })
         
     })
@@ -150,7 +173,14 @@ export const editFood = (foodItem,original) => (dispatch,getState) => {
             payload:{total_calories,fat,protein,carbs}
         })
     ).catch(err=>{
-        console.log(err)
+        const errors = {
+            msg:err.response.data,
+            status:err.response.status
+        }
+        dispatch({
+            type:GET_ERRORS,
+            payload:errors
+        })
     })
 
 }
@@ -176,7 +206,14 @@ export const deleteFood = (food) => (dispatch,getState) => {
             payload:{total_calories,fat,protein,carbs}
         })
     ).catch(err =>{
-        console.log(err)
+        const errors = {
+            msg:err.response.data,
+            status:err.response.status
+        }
+        dispatch({
+            type:GET_ERRORS,
+            payload:errors
+        })
     })
 }
 
@@ -189,7 +226,14 @@ export const getCalories = () => (dispatch,getState) => {
             payload:res.data.data
         })
     }).catch(err =>{
-        console.log(err)
+        const errors = {
+            msg:err.response.data,
+            status:err.response.status
+        }
+        dispatch({
+            type:GET_ERRORS,
+            payload:errors
+        })
     })
 }
 
@@ -202,7 +246,14 @@ export const getUserWeight = () => (dispatch,getState) => {
             payload:res.data.weight
         })
     }).catch(err =>{
-        console.log(err)
+        const errors = {
+            msg:err.response.data,
+            status:err.response.status
+        }
+        dispatch({
+            type:GET_ERRORS,
+            payload:errors
+        })
     })
 }
 
@@ -217,7 +268,14 @@ export const updateUserWeight = (weight) => (dispatch,getState) => {
             payload:res.data.data
         })
     }).catch(err =>{
-        console.log(err)
+        const errors = {
+            msg:err.response.data,
+            status:err.response.status
+        }
+        dispatch({
+            type:GET_ERRORS,
+            payload:errors
+        })
     })
 }
 
