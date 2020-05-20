@@ -54,7 +54,6 @@ export const loadUser = () => (dispatch,getState) => {
 
 // login user
 export const login = (username,password) => dispatch => {
-
     //headers
     const config = {
         headers: {
@@ -152,7 +151,6 @@ export const getProfileData = () => (dispatch,getState) => {
 export const updateProfileData = (calories) => (dispatch,getState) => {
     const config = configureConfig(getState)
     const body = JSON.stringify({"daily_calories":calories})
-    console.log(body)
     axios.put('http://localhost:8000/api/profile',body,config)
     .then(res=>{
         dispatch({

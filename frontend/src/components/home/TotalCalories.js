@@ -10,7 +10,12 @@ const TotalCalories = () => {
     const dispatch= useDispatch()
 
     useEffect(()=>{
-        dispatch(getCalories())
+        if (auth.isAuthenticated){
+            dispatch(getCalories())
+        } else {
+            console.log("Nah")
+        }
+        
     },[])
 
     const dataSet = {
@@ -27,27 +32,6 @@ const TotalCalories = () => {
             }
         ]
 
-    }
-
-    const renderCalorieBreakdown = () => {
-        return (
-            <>
-                <Col className="text-center">
-                    <h3>Daily Total Fat</h3>
-                    <h4>{total.fat ? total.fat + "g" : 0 + "g"}</h4>
-                </Col>
-                    
-                <Col className="text-center">
-                    <h3>Daily Total Protein</h3>
-                    <h4>{total.protein ? total.protein +"g" : 0 + "g"}</h4>
-                </Col>
-
-                <Col className="text-center">
-                    <h3>Daily Total Carbs</h3>
-                    <h4>{total.carbs ? total.carbs + "g" : 0 + "g"}</h4>
-                </Col>
-            </>
-        )
     }
 
     return(
@@ -88,7 +72,6 @@ const TotalCalories = () => {
                             <hr style={{width:"4rem"}} />
                             <h6>{auth.userCalorieGoal.daily_calories}</h6>
                         </Card>
-                        
                     </Col>
                 </Row>
             </Container>

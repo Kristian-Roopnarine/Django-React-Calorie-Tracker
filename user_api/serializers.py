@@ -8,16 +8,15 @@ class WeightSerializer(serializers.ModelSerializer):
         model = Weight
         fields = ['number','date_recorded']
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id','username']
-
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['daily_calories']
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id','username','profile']
 
 # Register serializer
 class RegisterSerializer(serializers.ModelSerializer):

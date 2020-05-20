@@ -3,8 +3,6 @@ import {connect} from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
-import { Provider } from 'react-redux';
-import store from '../store'
 import Alerts from './Alerts.js'
 import Register from './accounts/Register'
 import Login from './accounts/Login'
@@ -21,14 +19,13 @@ const alertOptions =  {
 }
 
 class App extends React.Component {
+
   componentDidMount(){
     this.props.loadUser()
-    this.props.getProfileData()
   }
 
   render(){
     return (
-      <Provider store={store}>
         <BrowserRouter>
           <AlertProvider template={AlertTemplate} {...alertOptions}>
             <NavBar />
@@ -38,12 +35,18 @@ class App extends React.Component {
             <Route path="/login" component = {Login}/>
           </AlertProvider>
         </BrowserRouter>
-      </Provider>
     )
   }
 }
 
-export default connect(mapStateToProps{
+
+const mapStateToProps = state => {
+  return {
+    auth:state.auth
+  }
+}
+
+export default connect(mapStateToProps,{
   loadUser,
   getProfileData
 })(App);

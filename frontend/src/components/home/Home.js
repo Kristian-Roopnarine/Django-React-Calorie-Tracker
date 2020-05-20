@@ -1,8 +1,7 @@
 import React from 'react'
-import { Redirect,Link } from 'react-router-dom'
 import {Container,Col,Row,Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
-
+import {getProfileData} from '../../actions/auth'
 import UpdateWeight from '../forms/UpdateWeight'
 import UpdateCalorieGoal from '../forms/UpdateCalorieGoal'
 import DailyFoodLog from './DailyFoodLog'
@@ -17,7 +16,10 @@ class Home extends React.Component {
         hideStatistics:true,
         statsButtonColor:'outline-success',
         foodLogButtonColor:'success'
+    }
 
+    componentDidMount(){
+        this.props.getProfileData()
     }
 
     onClickShowStats = () => {
@@ -71,4 +73,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps,{getProfileData})(Home)
