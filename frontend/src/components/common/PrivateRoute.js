@@ -14,7 +14,6 @@ const PrivateRoute = ({component:Component, auth , ...rest}) => (
             } else {
                 return <Component {...props} />
             }
-            
         }}
     />
 )

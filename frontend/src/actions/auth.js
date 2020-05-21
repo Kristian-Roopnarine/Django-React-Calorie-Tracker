@@ -2,10 +2,7 @@ import axios from 'axios'
 import {
     USER_LOADED,
     USER_LOADING,
-    AUTH_ERROR,
     LOGIN_SUCCESS,
-    LOGIN_FAIL,
-    REGISTER_FAIL,
     REGISTER_SUCCESS,
     LOGOUT,
     GET_PROFILE_DATA,
@@ -117,27 +114,14 @@ export const register = (username,password) => dispatch => {
 }
 
 export const logout = () => (dispatch,getState) => {
-    //get token from the state
-
-    const token = getState().auth.token
-
     //headers
-    const config = {
-        headers: {
-            'Content-Type':'application/json',
-        }
-    }
-
-    // if token add to headers config
-    if (token) {
-        config.headers['Authorization'] = `Token ${token}`
-    }
-
-    axios.post('http://localhost:8000/api/auth/logout',config)
+    const config = configureConfig(getState)
+    
+    axios.post('http://localhost:8000/api/auth/logout',null,config)
         .then(res => {
             dispatch({
                 type:LOGOUT,
-                payload:res.data
+                //payload:res.data
             })
         }).catch(err => {
             const errors = {

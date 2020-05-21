@@ -6,7 +6,7 @@ import AlertTemplate from 'react-alert-template-basic'
 import Alerts from './Alerts.js'
 import Register from './accounts/Register'
 import Login from './accounts/Login'
-import {loadUser,getProfileData} from '../actions/auth'
+import {loadUser} from '../actions/auth'
 import {BrowserRouter,Route} from 'react-router-dom'
 import Home from './home/Home'
 import NavBar from './NavBar'
@@ -19,7 +19,7 @@ const alertOptions =  {
 }
 
 class App extends React.Component {
-
+  
   componentDidMount(){
     this.props.loadUser()
   }
@@ -48,5 +48,4 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps,{
   loadUser,
-  getProfileData
 })(App);

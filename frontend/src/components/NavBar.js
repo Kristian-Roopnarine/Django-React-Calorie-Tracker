@@ -13,7 +13,7 @@ const NavBar = () => {
             auth.isAuthenticated ?
             <>
                 <Navbar.Brand href="/">Welcome {auth.user.username}</Navbar.Brand>
-                <Nav.Link href='/login' onClick={() => dispatch(logout())}>Logout</Nav.Link> 
+                <Nav.Link href="/" onClick={() => dispatch(logout())}>Logout</Nav.Link> 
             </> :
             <>
                 <Navbar.Brand href="/">Welcome</Navbar.Brand>

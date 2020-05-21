@@ -14,7 +14,5 @@ urlpatterns = [
     path('api/auth/logout',knox_views.LogoutView.as_view(),name="knox-logout"),
     path('api/user/weight',views.get_user_weight),
     path('api/user/30-day-weight',views.get_30_day_weight),
-    
-
 
 ]
